@@ -10,3 +10,4 @@ libsvm/windows/
 *.zip
 *.pyc
 *.cache
+pitu.sh
