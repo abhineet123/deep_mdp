@@ -1,0 +1,15 @@
+## @ grs:13.0
+# abs
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_detrac_:strain-0_9:stest-20_29:d-100_100,_abs_:active,_abs_:lost,_abs_:tracked,_test_:vis:++active:abs:++lost:abs:++tracked:abs:++glob,_train_:detrac:s-0_9:d-100_100:lk:svm:wrapper:tmpls2:min10 @test load=0 evaluate=1 @train load=-1
+
+## @ grs:13.1
+# oracle
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_detrac_:strain-0_9:stest-20_29:d-100_100,_oracle_:active,_oracle_:lost,_oracle_:tracked,_test_:vis:++active:oracle:++lost:oracle:++tracked:oracle:++glob,_train_:detrac:s-0_9:d-100_100:lk:svm:wrapper:tmpls2:min10 @test load=0 evaluate=1 @train load=-1
+
+## @ x99:13.0
+# pos
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_detrac_:strain-0_9:stest-20_29:d-100_100,_pos_:active,_pos_:lost,_pos_:tracked,_test_:vis:++active:pos:++lost:pos:++tracked:pos:++glob,_train_:detrac:s-0_9:d-100_100:lk:svm:wrapper:tmpls2:min10 @test load=0 evaluate=1 @train load=-1
+
+## @ x99:13.1
+# rand
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_detrac_:strain-0_9:stest-20_29:d-100_100,_rand_:active,_rand_:lost,_rand_:tracked,_test_:vis:++active:rand:++lost:rand:++tracked:rand:++glob,_train_:detrac:s-0_9:d-100_100:lk:svm:wrapper:tmpls2:min10 @test load=0 evaluate=1 @train load=-1

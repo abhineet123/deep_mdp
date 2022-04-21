@@ -1,0 +1,11 @@
+## @ x99:16.0
+# pos,gtt
+python36 main.py cfg=gpu:0,_gtt_:tmpls1:exit0,_detrac_:strain-0_9:stest-20_29:d-100_100,_pos_:lost+active+tracked,_test_:++active:pos:++lost:pos:++tracked:ign:pos:++glob,_train_:detrac:s-0_9:d-100_100:gtt:exit0:tmpls1:ign:det_train+det_test:rec-60:prec-60 @test load=0 evaluate=1 @trainer vis=0 @train load=-1
+
+## @ x99:13.0
+# pos,gtt
+python36 main.py cfg=gpu:0,_gtt_:tmpls1:exit0,_mot15_:strain-0_10:stest-0_10:d-100_100,_pos_:lost+active+tracked,_test_:++active:pos:++lost:pos:++tracked:ign:pos:++glob,_train_:mot15:s-0_10:d-100_100:gtt:exit0:tmpls1:ign:det_train+det_test:rec-60:prec-60 @test load=0 evaluate=1 @trainer vis=0 @train load=-1
+
+## @ x99:15.0
+# pos,gtt
+python36 main.py cfg=gpu:0,_gtt_:tmpls1:exit0,_mot17_:strain-0_6:stest-0_6:d-100_100,_pos_:lost+active+tracked,_test_:++active:pos:++lost:pos:++tracked:ign:pos:++glob,_train_:mot17:s-0_6:d-100_100:gtt:exit0:tmpls1:ign:det_train+det_test:rec-60:prec-60 @test load=0 evaluate=1 @trainer vis=0 @train load=-1

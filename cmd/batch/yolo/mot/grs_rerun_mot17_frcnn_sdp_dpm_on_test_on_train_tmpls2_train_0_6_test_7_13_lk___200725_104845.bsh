@@ -1,0 +1,9 @@
+## @ grs:14.0
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_mot17_:sdp:strain-0_6:stest-7_13:d-100_100,_svm_:active,_svm_:lost:minr10,_test_:vis,_train_:mot17:sdp:s-0_6:d-100_100:lk:svm:wrapper:tmpls2:min10:++active_pt:svm @test load=0 evaluate=1 subseq_postfix=0 @train load=1 @tester save_debug_info=0
+
+## @ grs:14.2
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_mot17_:dpm:strain-0_6:stest-7_13:d-100_100,_svm_:active,_svm_:lost:minr10,_test_:vis,_train_:mot17:dpm:s-0_6:d-100_100:lk:svm:wrapper:tmpls2:min10:++active_pt:svm @test load=0 evaluate=1 subseq_postfix=0 @train load=1 @tester save_debug_info=0
+
+## @ grs:14.3
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_mot17_:strain-0_6:stest-7_13:d-100_100,_svm_:active,_svm_:lost:minr10,_test_:vis,_train_:mot17:s-0_6:d-100_100:lk:svm:wrapper:tmpls2:min10:++active_pt:svm @test load=0 evaluate=1 subseq_postfix=0 @train load=1 @tester save_debug_info=0
+

@@ -1,0 +1,4 @@
+python36 main.py cfg=gpu:0,_ctmc_:strain-0_46:stest-0_46:d-100_100,_test_:res_from_gt-2:assoc-0:diou-{range(0,100,1)},_train_:ctmc:s-0_46:d-100_100:det_train+det_test:MOT @test load=0 evaluate=1
+
+python36 main.py cfg=gpu:0,_ctmc_:strain-0_46:stest-0_46:d-100_100,_test_:res_from_gt-2:assoc-1:diou-{range(0,100,1)},_train_:ctmc:s-0_46:d-100_100:det_train+det_test:MOT @test load=0 evaluate=1
+

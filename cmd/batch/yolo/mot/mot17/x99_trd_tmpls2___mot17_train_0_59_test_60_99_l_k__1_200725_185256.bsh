@@ -1,0 +1,11 @@
+## @ x99:12.0
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_mot17_:strain-0_6:stest-7_13:d-100_100,_svm_:active,_svm_:lost:minr10,_test_:vis:trd4,_train_:mot17:s-0_6:d-100_100:lk:svm:wrapper:tmpls2:min10:++active_pt:svm @test load=0 evaluate=1 @train load=1
+
+## @ x99:12.1
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_mot17_:strain-0_6:stest-7_13:d-100_100,_svm_:active,_svm_:lost:minr10,_test_:vis:trd9,_train_:mot17:s-0_6:d-100_100:lk:svm:wrapper:tmpls2:min10:++active_pt:svm @test load=0 evaluate=1 @train load=1
+
+## @ x99:12.2
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_mot17_:strain-0_6:stest-7_13:d-100_100,_svm_:active,_svm_:lost:minr10,_test_:vis:trd14,_train_:mot17:s-0_6:d-100_100:lk:svm:wrapper:tmpls2:min10:++active_pt:svm @test load=0 evaluate=1 @train load=1
+
+## @ x99:13.0
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_mot17_:strain-0_6:stest-7_13:d-100_100,_svm_:active,_svm_:lost:minr10,_test_:vis:trd24,_train_:mot17:s-0_6:d-100_100:lk:svm:wrapper:tmpls2:min10:++active_pt:svm @test load=0 evaluate=1 @train load=1

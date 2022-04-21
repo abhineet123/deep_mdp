@@ -1,0 +1,17 @@
+## @ grs:12.0
+# lk,100
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_ctmc_:strain-0_9:stest-20_29:d-100_100,_svm_:lost+active:min10,_train_:ctmc:s-0_9:d-100_100:lk:svm:wrapper:tmpls2:min10:det_train+det_test:rec-100:prec-100,_active_:no_pt @test load=0 evaluate=1 @train load=0 @trainer vis=0
+
+# python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_ctmc_:strain-0_0:stest-0_0:d-10_10,_svm_:lost+active:min10,_train_:ctmc:s-0_0:d-10_10:lk:svm:wrapper:tmpls2:min10:det_train+det_test:rec-100:prec-100,_active_:no_pt @test load=0 evaluate=1 @train load=0
+
+## @ grs:13.0
+# lk,80
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_ctmc_:strain-0_9:stest-20_29:d-100_100,_svm_:lost+active:min10,_train_:ctmc:s-0_9:d-100_100:lk:svm:wrapper:tmpls2:min10:det_train+det_test:rec-80:prec-80,_active_:no_pt @test load=0 evaluate=1 @train load=0 @trainer vis=0
+
+## @ grs:14.0
+# lk,60
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_ctmc_:strain-0_9:stest-20_29:d-100_100,_svm_:lost+active:min10,_train_:ctmc:s-0_9:d-100_100:lk:svm:wrapper:tmpls2:min10:det_train+det_test:rec-60:prec-60,_active_:no_pt @test load=0 evaluate=1 @train load=0 @trainer vis=0
+
+## @ grs:15.0
+# lk,40
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_ctmc_:strain-0_9:stest-20_29:d-100_100,_svm_:lost+active:min10,_train_:ctmc:s-0_9:d-100_100:lk:svm:wrapper:tmpls2:min10:det_train+det_test:rec-40:prec-40,_active_:no_pt @test load=0 evaluate=1 @train load=0 @trainer vis=0

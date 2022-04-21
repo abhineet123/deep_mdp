@@ -1,0 +1,17 @@
+## @ grs:14.0
+# mot15
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_mot15_:strain-0_10:stest-0_10:d-100_100,_oracle_:active,_oracle_:lost,_oracle_:tracked,_test_:vis:++active:oracle:++lost:oracle:++tracked:oracle:++glob,_train_:mot15:s-0_10:d-100_100:lk:svm:wrapper:tmpls2:min10 @test load=1 evaluate=1 @train load=-1
+
+## @ grs:14.1
+# mot17 frcnn
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_mot17_:strain-0_6:stest-0_6:d-100_100,_oracle_:active,_oracle_:lost,_oracle_:tracked,_test_:vis:++active:oracle:++lost:oracle:++tracked:oracle:++glob,_train_:mot17:s-0_6:d-100_100:lk:svm:wrapper:tmpls2:min10 @test load=1 evaluate=1 @train load=-1
+
+## @ grs:15.0
+# mot17 sdp
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_mot17_:sdp:strain-0_6:stest-0_6:d-100_100,_oracle_:active,_oracle_:lost,_oracle_:tracked,_test_:vis:++active:oracle:++lost:oracle:++tracked:oracle:++glob,_train_:mot17:s-0_6:d-100_100:lk:svm:wrapper:tmpls2:min10 @test load=1 evaluate=1 @train load=-1
+
+## @ grs:15.1
+# mot17 dpm
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_mot17_:dpm:strain-0_6:stest-0_6:d-100_100,_oracle_:active,_oracle_:lost,_oracle_:tracked,_test_:vis:++active:oracle:++lost:oracle:++tracked:oracle:++glob,_train_:mot17:s-0_6:d-100_100:lk:svm:wrapper:tmpls2:min10 @test load=1 evaluate=1 @train load=-1
+
+

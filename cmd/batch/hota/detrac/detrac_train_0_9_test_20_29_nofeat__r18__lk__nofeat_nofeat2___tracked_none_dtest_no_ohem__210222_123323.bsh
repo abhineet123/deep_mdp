@@ -1,0 +1,24 @@
+## @ grs:15.0
+# detrac nofeat2
+python36 main.py cfg=gpu:2,_lk_:tmpls2:nofeat2,_detrac_:strain-0_9:stest-20_29:d-100_100,_cnn_:lost+active:r18:pt:e50:s:70_30:acc994:r2:b20:lr-5_4:schd:step-20_2,_tracked_:none:thresh-10,_ibt_:dtest:tmpls2:n2:t2:detrac:s-0_9:d-100_100:lk:nofeat2:++active+lost:cnn:r18:pt,_active_:no_pt @ibt test_iters=0,1 min_samples=1 ips=000 @test load=0
+
+# 32x32
+python36 main.py cfg=gpu:2,_lk_:tmpls2:nofeat2-32,_detrac_:strain-0_9:stest-20_29:d-100_100,_cnn_:lost+active:r18:pt:e50:s:70_30:acc994:r2:b20:lr-5_4:schd:step-20_2,_tracked_:none:thresh-10,_ibt_:dtest:tmpls2:n2:t2:detrac:s-0_9:d-100_100:lk:nofeat2-32:++active+lost:cnn:r18:pt,_active_:no_pt @ibt test_iters=0,1 min_samples=1 ips=000 @test load=0
+
+## data_test eval
+python36 main.py cfg=gpu:1,_lk_:tmpls2:nofeat2,_detrac_:strain-0_9:stest-20_29:d-100_100,_cnn_:lost+active:r18:pt:e50:s:70_30:acc994:r2:b20:lr-5_4:schd:step-20_2,_tracked_:none:thresh-10,_ibt_:dtest:tmpls2:n3:t2:detrac:s-0_9:d-100_100:lk:nofeat2:++active+lost:cnn:r18:pt,_active_:no_pt @ibt test_iters=2 min_samples=1 ips=000 phases=0 @test load=1
+
+## test all iters
+python36 main.py cfg=gpu:1,_lk_:tmpls2:nofeat2,_detrac_:strain-0_9:stest-20_29:d-100_100,_cnn_:lost+active:r18:pt:e50:s:70_30:acc994:r2:b20:lr-5_4:schd:step-20_2,_tracked_:none:thresh-10,_ibt_:dtest:tmpls2:n3:t2:detrac:s-0_9:d-100_100:lk:nofeat2:++active+lost:cnn:r18:pt,_active_:no_pt @ibt test_iters=0,1 min_samples=1 ips=000 phases=3 @test load=0
+
+
+# glob
+python36 main.py cfg=gpu:1,_lk_:tmpls2:nofeat2,_detrac_:strain-0_9:stest-20_29:d-100_100,_cnn_:lost+active:r18:pt:e50:s:70_30:acc994:r2:b20:lr-5_4:schd:step-20_2,_tracked_:none:thresh-10,_ibt_:dtest:tmpls2:n3:t2:detrac:s-0_9:d-100_100:lk:nofeat2:++active+lost:cnn:r18:pt:++glob,_active_:no_pt @ibt test_iters=2 min_samples=1 ips=230 @test load=0
+
+## @ grs:15.1
+# detrac nofeat
+python36 main.py cfg=gpu:2,_lk_:tmpls2:nofeat,_detrac_:strain-0_9:stest-20_29:d-100_100,_cnn_:lost+active:r18:pt:e50:s:70_30:acc994:r2:b20:lr-5_4:schd:step-20_2,_tracked_:none:thresh-10,_ibt_:dtest:tmpls2:n3:t2:detrac:s-0_9:d-100_100:lk:nofeat:++active+lost:cnn:r18:pt,_active_:no_pt @ibt test_iters=2 min_samples=1 ips=010 @test load=0
+
+
+# python36 main.py cfg=gpu:0,_lk_:tmpls2:nofeat,_detrac_:strain-0_0:stest-0_0:d-10_10,_cnn_:lost+active:r18:pt:e50:s:70_30:acc994:r2:b20:lr-5_4:schd:step-20_2,_tracked_:none:thresh-10,_ibt_:dtest:tmpls2:n3:t2:detrac:s-0_0:d-100_100:lk:nofeat:++active+lost:cnn:r18:pt,_active_:no_pt @ibt test_iters=2 min_samples=1 ips=000 @test load=0
+

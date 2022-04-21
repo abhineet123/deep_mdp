@@ -1,0 +1,17 @@
+## @ grs:12.1
+
+# abs,gtt
+python36 main.py cfg=gpu:0,_gtt_:tmpls1,_mot17_:strain-0_6:stest-0_6:d-100_100,_abs_:lost+active+tracked,_test_:++active:abs:++lost:abs:++tracked:ign:abs:++glob,_train_:mot17:s-0_6:d-100_100:gtt:tmpls1:ign:det_train+det_test:rec-40:prec-40 @test load=0 evaluate=1 @trainer vis=0 @train load=-1
+
+## @ grs:13.1
+# oracle,gtt
+python36 main.py cfg=gpu:0,_gtt_:tmpls1,_mot17_:strain-0_6:stest-0_6:d-100_100,_oracle_:lost+active+tracked,_test_:++active:oracle:++lost:oracle:++tracked:ign:oracle:++glob,_train_:mot17:s-0_6:d-100_100:gtt:tmpls1:ign:det_train+det_test:rec-40:prec-40 @test load=0 evaluate=1 @trainer vis=0 @train load=-1
+
+## @ grs:14.1
+# pos,gtt
+python36 main.py cfg=gpu:0,_gtt_:tmpls1,_mot17_:strain-0_6:stest-0_6:d-100_100,_pos_:lost+active+tracked,_test_:++active:pos:++lost:pos:++tracked:ign:pos:++glob,_train_:mot17:s-0_6:d-100_100:gtt:tmpls1:ign:det_train+det_test:rec-40:prec-40 @test load=0 evaluate=1 @trainer vis=0 @train load=-1
+
+## @ grs:15.1
+# rand,gtt
+python36 main.py cfg=gpu:0,_gtt_:tmpls1,_mot17_:strain-0_6:stest-0_6:d-100_100,_rand_:lost+active+tracked,_test_:++active:rand:++lost:rand:++tracked:ign:rand:++glob,_train_:mot17:s-0_6:d-100_100:gtt:tmpls1:ign:det_train+det_test:rec-40:prec-40 @test load=0 evaluate=1 @trainer vis=0 @train load=-1
+

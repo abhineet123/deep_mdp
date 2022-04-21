@@ -1,0 +1,9 @@
+## @ x99:12.0
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_ctmc_:strain-0_46:stest-0_85:d-100_100,_svm_:lost+active:min100:max50,_train_:ctmc:s-0_46:d-100_100:lk:svm:wrapper:tmpls2:min100:max50:det_train+det_test:MOT,_active_:no_pt @test load=0 evaluate=1 @train load=1 @trainer vis=0
+
+# test on train
+# python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_ctmc_:strain-0_46:stest-0_46:d-100_100,_svm_:lost+active:min10:max50,_train_:ctmc:s-0_46:d-100_100:lk:svm:wrapper:tmpls2:min10:max50:det_train+det_test:MOT,_active_:no_pt @test load=0 evaluate=1 @train load=1 @trainer vis=0
+
+## lk_gt
+# python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_ctmc_:strain-0_46:stest-0_46:d-100_100,_svm_:lost+active:min10:max50,_train_:ctmc:s-0_46:d-100_100:lk:svm:wrapper:tmpls2:min10:max50:det_train+det_test:MOT,_active_:no_pt,_test_:lk_gt @test load=0 evaluate=1 @train load=1 @trainer vis=0
+

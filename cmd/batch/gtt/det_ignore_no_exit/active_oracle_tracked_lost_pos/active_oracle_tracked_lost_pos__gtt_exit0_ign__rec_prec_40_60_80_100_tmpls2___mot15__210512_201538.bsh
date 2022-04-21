@@ -1,0 +1,15 @@
+## @ x99:12.0
+# 40
+python36 main.py cfg=gpu:0,_gtt_:tmpls1:exit0,_mot15_:strain-0_10:stest-0_10:d-100_100,_oracle_:active,_pos_:lost+tracked,_test_:++active:oracle:++lost:pos:++tracked:ign:pos:++glob,_train_:mot15:s-0_10:d-100_100:gtt:exit0:tmpls1:ign:det_train+det_test:rec-40:prec-40 @test load=0 evaluate=1 @trainer vis=0 @train load=-1
+
+## @ x99:13.0
+# 60
+python36 main.py cfg=gpu:0,_gtt_:tmpls1:exit0,_mot15_:strain-0_10:stest-0_10:d-100_100,_oracle_:active,_pos_:lost+tracked,_test_:++active:oracle:++lost:pos:++tracked:ign:pos:++glob,_train_:mot15:s-0_10:d-100_100:gtt:exit0:tmpls1:ign:det_train+det_test:rec-60:prec-60 @test load=0 evaluate=1 @trainer vis=0 @train load=-1
+
+## @ x99:14.0
+# 80
+python36 main.py cfg=gpu:0,_gtt_:tmpls1:exit0,_mot15_:strain-0_10:stest-0_10:d-100_100,_oracle_:active,_pos_:lost+tracked,_test_:++active:oracle:++lost:pos:++tracked:ign:pos:++glob,_train_:mot15:s-0_10:d-100_100:gtt:exit0:tmpls1:ign:det_train+det_test:rec-80:prec-80 @test load=0 evaluate=1 @trainer vis=0 @train load=-1
+
+## @ x99:15.0
+# 100
+python36 main.py cfg=gpu:0,_gtt_:tmpls1:exit0,_mot15_:strain-0_10:stest-0_10:d-100_100,_oracle_:active,_pos_:lost+tracked,_test_:++active:oracle:++lost:pos:++tracked:ign:pos:++glob,_train_:mot15:s-0_10:d-100_100:gtt:exit0:tmpls1:ign:det_train+det_test:rec-100:prec-100 @test load=0 evaluate=1 @trainer vis=0 @train load=-1

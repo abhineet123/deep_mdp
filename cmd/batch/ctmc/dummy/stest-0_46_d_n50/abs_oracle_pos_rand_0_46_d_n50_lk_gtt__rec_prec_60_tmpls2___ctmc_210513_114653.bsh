@@ -1,0 +1,37 @@
+## @ x99:12.0
+# abs,lk
+python36 main.py cfg=gpu:0,_lk_:tmpls1:wrapper,_ctmc_:strain-0_46:stest-0_46:d-50_n50,_abs_:lost+active+tracked,_test_:++active:abs:++lost:abs:++tracked:abs:++glob,_train_:ctmc:s-0_46:d-50_n50:lk:wrapper:tmpls1:det_train+det_test:rec-60:prec-60 @test load=0 evaluate=1 @trainer vis=0 @train load=-1
+
+## @ x99:13.0
+# oracle,lk
+python36 main.py cfg=gpu:0,_lk_:tmpls1:wrapper,_ctmc_:strain-0_46:stest-0_46:d-50_n50,_oracle_:lost+active+tracked,_test_:++active:oracle:++lost:oracle:++tracked:oracle:++glob,_train_:ctmc:s-0_46:d-50_n50:lk:wrapper:tmpls1:det_train+det_test:rec-60:prec-60 @test load=0 evaluate=1 @trainer vis=0 @train load=-1
+
+## @ x99:14.0
+# pos,lk
+python36 main.py cfg=gpu:0,_lk_:tmpls1:wrapper,_ctmc_:strain-0_46:stest-0_46:d-50_n50,_pos_:lost+active+tracked,_test_:++active:pos:++lost:pos:++tracked:pos:++glob,_train_:ctmc:s-0_46:d-50_n50:lk:wrapper:tmpls1:det_train+det_test:rec-60:prec-60 @test load=0 evaluate=1 @trainer vis=0 @train load=-1
+
+## @ x99:15.0
+# rand,lk
+python36 main.py cfg=gpu:0,_lk_:tmpls1:wrapper,_ctmc_:strain-0_46:stest-0_46:d-50_n50,_rand_:lost+active+tracked,_test_:++active:rand:++lost:rand:++tracked:rand:++glob,_train_:ctmc:s-0_46:d-50_n50:lk:wrapper:tmpls1:det_train+det_test:rec-60:prec-60 @test load=0 evaluate=1 @trainer vis=0 @train load=-1
+
+# ------------------------------------     ------------------------------------ #
+# ------------------------------------ GTT ------------------------------------ #
+# ------------------------------------     ------------------------------------ #
+
+## @ x99:12.1
+
+# abs,gtt
+python36 main.py cfg=gpu:0,_gtt_:exit0:tmpls1,_ctmc_:strain-0_46:stest-0_46:d-50_n50,_abs_:lost+active+tracked,_test_:++active:abs:++lost:abs:++tracked:abs:++glob,_train_:ctmc:s-0_46:d-50_n50:gtt:exit0:tmpls1:det_train+det_test:rec-60:prec-60 @test load=0 evaluate=1 @trainer vis=0 @train load=-1
+
+## @ x99:13.1
+# oracle,gtt
+python36 main.py cfg=gpu:0,_gtt_:exit0:tmpls1,_ctmc_:strain-0_46:stest-0_46:d-50_n50,_oracle_:lost+active+tracked,_test_:++active:oracle:++lost:oracle:++tracked:oracle:++glob,_train_:ctmc:s-0_46:d-50_n50:gtt:exit0:tmpls1:det_train+det_test:rec-60:prec-60 @test load=0 evaluate=1 @trainer vis=0 @train load=-1
+
+## @ x99:14.1
+# pos,gtt
+python36 main.py cfg=gpu:0,_gtt_:exit0:tmpls1,_ctmc_:strain-0_46:stest-0_46:d-50_n50,_pos_:lost+active+tracked,_test_:++active:pos:++lost:pos:++tracked:pos:++glob,_train_:ctmc:s-0_46:d-50_n50:gtt:exit0:tmpls1:det_train+det_test:rec-60:prec-60 @test load=0 evaluate=1 @trainer vis=0 @train load=-1
+
+## @ x99:15.1
+# rand,gtt
+python36 main.py cfg=gpu:0,_gtt_:exit0:tmpls1,_ctmc_:strain-0_46:stest-0_46:d-50_n50,_rand_:lost+active+tracked,_test_:++active:rand:++lost:rand:++tracked:rand:++glob,_train_:ctmc:s-0_46:d-50_n50:gtt:exit0:tmpls1:det_train+det_test:rec-60:prec-60 @test load=0 evaluate=1 @trainer vis=0 @train load=-1
+

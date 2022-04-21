@@ -1,0 +1,11 @@
+## @ x99:12.0
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_mot15_:strain-0_10:stest-0_10:d-100_100,_svm_:active,_oracle_:lost,_test_:vis:trd4:++lost:oracle,_train_:mot15:s-0_10:d-100_100:lk:svm:wrapper:tmpls2:min10:++active_pt:svm @test load=0 evaluate=1 @train load=1
+
+## @ x99:12.1
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_mot15_:strain-0_10:stest-0_10:d-100_100,_svm_:active,_oracle_:lost,_test_:vis:trd9:++lost:oracle,_train_:mot15:s-0_10:d-100_100:lk:svm:wrapper:tmpls2:min10:++active_pt:svm @test load=0 evaluate=1 @train load=1
+
+## @ x99:12.2
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_mot15_:strain-0_10:stest-0_10:d-100_100,_svm_:active,_oracle_:lost,_test_:vis:trd14:++lost:oracle,_train_:mot15:s-0_10:d-100_100:lk:svm:wrapper:tmpls2:min10:++active_pt:svm @test load=0 evaluate=1 @train load=1
+
+## @ x99:13.0
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_mot15_:strain-0_10:stest-0_10:d-100_100,_svm_:active,_oracle_:lost,_test_:vis:trd24:++lost:oracle,_train_:mot15:s-0_10:d-100_100:lk:svm:wrapper:tmpls2:min10:++active_pt:svm @test load=0 evaluate=1 @train load=1

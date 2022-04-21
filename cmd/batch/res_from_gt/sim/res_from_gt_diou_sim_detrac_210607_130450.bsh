@@ -1,0 +1,10 @@
+python36 main.py cfg=gpu:0,_detrac_:strain-0_99:stest-0_99:d-100_100,_test_:res_from_gt-2:assoc-0:diou-{range(0,100,1)},_train_:detrac:s-0_99:d-100_100:det_train+det_test:rec-100:prec-100 @test load=0 evaluate=1
+
+python36 main.py cfg=gpu:0,_detrac_:strain-0_99:stest-0_99:d-100_100,_test_:res_from_gt-2:assoc-0:diou-{range(0,100,1)},_train_:detrac:s-0_99:d-100_100:det_train+det_test:rec-80:prec-80 @test load=0 evaluate=1
+
+python36 main.py cfg=gpu:0,_detrac_:strain-0_99:stest-0_99:d-100_100,_test_:res_from_gt-2:assoc-0:diou-{range(0,100,1)},_train_:detrac:s-0_99:d-100_100:det_train+det_test:rec-60:prec-60 @test load=0 evaluate=1
+
+python36 main.py cfg=gpu:0,_detrac_:strain-0_99:stest-0_99:d-100_100,_test_:res_from_gt-2:assoc-0:diou-{range(0,100,1)},_train_:detrac:s-0_99:d-100_100:det_train+det_test:rec-40:prec-40 @test load=0 evaluate=1
+
+# python36 main.py cfg=gpu:0,_detrac_:strain-0_99:stest-0_99:d-100_100,_test_:res_from_gt-2:assoc-0:diou-50,_train_:detrac:s-0_99:d-100_100:det_train+det_test:rec-40:prec-40 @test load=0 evaluate=1
+

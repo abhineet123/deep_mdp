@@ -1,0 +1,12 @@
+.idea/
+log/
+_paramparse_/
+build/
+build_win_py35/
+build_win/
+build/
+videos/
+libsvm/windows/
+*.zip
+*.pyc
+*.cache

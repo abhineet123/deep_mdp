@@ -1,0 +1,9 @@
+## @ orca:13.0
+python36 main.py cfg=gpu:0,_darpn_:tmpls2:+tracked:m0:nms0:f0,_detrac_:strain-0_59:stest-60_99:d-100_100,_mlp_:active:24_48_64_48_24:bn:ohem2:e1k:s:70_30:acc-994,_cnn_:lost:incp3:pt:e15:ohem2:lr1_4:b10:s:70_30:acc994,_ibt_:acc:tmpls2:n2:t2:detrac:s-0_59:d100_100:+ctm:darpn:m0:++lost:cnn:incp3:pt:++tracked:none:thresh-10:++active_pt-24_48_64_48_24_bn_ohem2,_tracked_:none:thresh-10 @ibt test_iters=2 cfgs+=10:_cnn_:lost+tracked:e5 test_cfgs+=0:_detrac_:stest-60_99:d100_100 start=00
+
+## @ orca:13.1
+python36 main.py cfg=gpu:0,_darpn_:tmpls2:m0:nms0:f0,_pyt_:tracked:prdimp-18:nms0:f0,_detrac_:strain-0_59:stest-60_99:d-100_100,_mlp_:active:24_48_64_48_24:bn:ohem2:e1k:s:70_30:acc-994,_cnn_:lost:incp3:pt:e15:ohem2:lr1_4:b10:s:70_30:acc994,_ibt_:acc:tmpls2:n2:t2:detrac:s-0_59:d100_100:darpn:m0:++ctm:pyt:prdimp-18:++lost:cnn:incp3:pt:++tracked:none:thresh-10:++active_pt-24_48_64_48_24_bn_ohem2,_tracked_:none:thresh-10 @ibt test_iters=2 cfgs+=10:_cnn_:lost+tracked:e5 test_cfgs+=0:_detrac_:stest-60_99:d100_100 start=00
+
+## @ orca:13.2
+python36 main.py cfg=gpu:1,_darpn_:tmpls2:m0:nms0:f0,_siamx_:tracked:rpn_nxt:nms0:f0,_detrac_:strain-0_59:stest-60_99:d-100_100,_mlp_:active:24_48_64_48_24:bn:ohem2:e1k:s:70_30:acc-994,_cnn_:lost:incp3:pt:e15:ohem2:lr1_4:b10:s:70_30:acc994,_ibt_:acc:tmpls2:n2:t2:detrac:s-0_59:d100_100:darpn:m0:++ctm:siamx:rpn_nxt:++lost:cnn:incp3:pt:++tracked:none:thresh-10:++active_pt-24_48_64_48_24_bn_ohem2,_tracked_:none:thresh-10 @ibt test_iters=2 cfgs+=10:_cnn_:lost+tracked:e5 test_cfgs+=0:_detrac_:stest-60_99:d100_100 start=00
+

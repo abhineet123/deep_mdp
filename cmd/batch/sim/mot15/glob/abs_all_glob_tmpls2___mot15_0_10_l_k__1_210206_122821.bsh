@@ -1,0 +1,29 @@
+## @ grs:12.0
+# precision 50, all recall
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_mot15_:strain-0_10:stest-0_10:d-100_100,_abs_:active,_abs_:lost,_abs_:tracked,_test_:vis:++active:abs:++lost:abs:++tracked:abs:++glob,_train_:mot15:s-0_10:d-100_100:lk:svm:wrapper:tmpls2:min10:det_train+det_test:rec-{irange(50,100,10)}:prec-50 @test load=0 evaluate=1 @train load=-1
+
+# python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_mot15_:strain-0_0:stest-0_0:d-100_100,_abs_:active,_abs_:lost,_abs_:tracked,_test_:vis:++active:abs:++lost:abs:++tracked:abs:++glob,_train_:mot15:s-0_10:d-100_100:lk:svm:wrapper:tmpls2:min10:det_train+det_test:rec-50:prec-50 @test load=0 evaluate=1 @train load=-1
+
+# python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_mot15_:strain-0_10:stest-0_10:d-100_100,_abs_:active,_abs_:lost,_abs_:tracked,_test_:vis:++active:abs:++lost:abs:++tracked:abs:++glob,_train_:mot15:s-0_10:d-100_100:lk:svm:wrapper:tmpls2:min10:det_train+det_test:rec-100:prec-80 @test load=0 evaluate=1 @train load=-1
+
+## @ grs:12.1
+# precision 60, all recall
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_mot15_:strain-0_10:stest-0_10:d-100_100,_abs_:active,_abs_:lost,_abs_:tracked,_test_:vis:++active:abs:++lost:abs:++tracked:abs:++glob,_train_:mot15:s-0_10:d-100_100:lk:svm:wrapper:tmpls2:min10:det_train+det_test:rec-{irange(50,100,10)}:prec-60 @test load=0 evaluate=1 @train load=-1
+
+## @ grs:12.2
+# precision 70, all recall
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_mot15_:strain-0_10:stest-0_10:d-100_100,_abs_:active,_abs_:lost,_abs_:tracked,_test_:vis:++active:abs:++lost:abs:++tracked:abs:++glob,_train_:mot15:s-0_10:d-100_100:lk:svm:wrapper:tmpls2:min10:det_train+det_test:rec-{irange(50,100,10)}:prec-70 @test load=0 evaluate=1 @train load=-1
+
+## @ grs:13.0
+# precision 80, all recall
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_mot15_:strain-0_10:stest-0_10:d-100_100,_abs_:active,_abs_:lost,_abs_:tracked,_test_:vis:++active:abs:++lost:abs:++tracked:abs:++glob,_train_:mot15:s-0_10:d-100_100:lk:svm:wrapper:tmpls2:min10:det_train+det_test:rec-{irange(50,100,10)}:prec-80 @test load=0 evaluate=1 @train load=-1
+
+## @ orca:11.0
+# precision 90, all recall
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_mot15_:strain-0_10:stest-0_10:d-100_100,_abs_:active,_abs_:lost,_abs_:tracked,_test_:vis:++active:abs:++lost:abs:++tracked:abs:++glob,_train_:mot15:s-0_10:d-100_100:lk:svm:wrapper:tmpls2:min10:det_train+det_test:rec-{irange(50,100,10)}:prec-90 @test load=0 evaluate=1 @train load=-1
+
+
+## @ orca:11.1
+# precision 100, all recall
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_mot15_:strain-0_10:stest-0_10:d-100_100,_abs_:active,_abs_:lost,_abs_:tracked,_test_:vis:++active:abs:++lost:abs:++tracked:abs:++glob,_train_:mot15:s-0_10:d-100_100:lk:svm:wrapper:tmpls2:min10:det_train+det_test:rec-{irange(50,100,10)}:prec-100 @test load=0 evaluate=1 @train load=-1
+

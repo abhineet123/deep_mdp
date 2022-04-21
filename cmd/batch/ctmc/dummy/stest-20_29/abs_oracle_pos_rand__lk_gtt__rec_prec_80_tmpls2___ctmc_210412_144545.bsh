@@ -1,0 +1,36 @@
+## @ orca:12.0
+# abs,lk
+python36 main.py cfg=gpu:0,_lk_:tmpls1:wrapper,_ctmc_:strain-0_9:stest-20_29:d-100_100,_abs_:lost+active+tracked,_test_:++active:abs:++lost:abs:++tracked:abs:++glob,_train_:ctmc:s-0_9:d-100_100:lk:wrapper:tmpls1:det_train+det_test:rec-80:prec-80 @test load=0 evaluate=1 @trainer vis=0 @train load=-1
+
+## @ orca:13.0
+# oracle,lk
+python36 main.py cfg=gpu:0,_lk_:tmpls1:wrapper,_ctmc_:strain-0_9:stest-20_29:d-100_100,_oracle_:lost+active+tracked,_test_:++active:oracle:++lost:oracle:++tracked:oracle:++glob,_train_:ctmc:s-0_9:d-100_100:lk:wrapper:tmpls1:det_train+det_test:rec-80:prec-80 @test load=0 evaluate=1 @trainer vis=0 @train load=-1
+
+## @ orca:14.0
+# pos,lk
+python36 main.py cfg=gpu:0,_lk_:tmpls1:wrapper,_ctmc_:strain-0_9:stest-20_29:d-100_100,_pos_:lost+active+tracked,_test_:++active:pos:++lost:pos:++tracked:pos:++glob,_train_:ctmc:s-0_9:d-100_100:lk:wrapper:tmpls1:det_train+det_test:rec-80:prec-80 @test load=0 evaluate=1 @trainer vis=0 @train load=-1
+
+## @ orca:15.0
+# rand,lk
+python36 main.py cfg=gpu:0,_lk_:tmpls1:wrapper,_ctmc_:strain-0_9:stest-20_29:d-100_100,_rand_:lost+active+tracked,_test_:++active:rand:++lost:rand:++tracked:rand:++glob,_train_:ctmc:s-0_9:d-100_100:lk:wrapper:tmpls1:det_train+det_test:rec-80:prec-80 @test load=0 evaluate=1 @trainer vis=0 @train load=-1
+
+# ------------------------------------     ------------------------------------ #
+# ------------------------------------ GTT ------------------------------------ #
+# ------------------------------------     ------------------------------------ #
+
+## @ orca:12.1
+# abs,gtt
+python36 main.py cfg=gpu:0,_gtt_:tmpls1,_ctmc_:strain-0_9:stest-20_29:d-100_100,_abs_:lost+active+tracked,_test_:++active:abs:++lost:abs:++tracked:abs:++glob,_train_:ctmc:s-0_9:d-100_100:gtt:tmpls1:det_train+det_test:rec-80:prec-80 @test load=0 evaluate=1 @trainer vis=0 @train load=-1
+
+## @ orca:13.1
+# oracle,gtt
+python36 main.py cfg=gpu:0,_gtt_:tmpls1,_ctmc_:strain-0_9:stest-20_29:d-100_100,_oracle_:lost+active+tracked,_test_:++active:oracle:++lost:oracle:++tracked:oracle:++glob,_train_:ctmc:s-0_9:d-100_100:gtt:tmpls1:det_train+det_test:rec-80:prec-80 @test load=0 evaluate=1 @trainer vis=0 @train load=-1
+
+## @ orca:14.1
+# pos,gtt
+python36 main.py cfg=gpu:0,_gtt_:tmpls1,_ctmc_:strain-0_9:stest-20_29:d-100_100,_pos_:lost+active+tracked,_test_:++active:pos:++lost:pos:++tracked:pos:++glob,_train_:ctmc:s-0_9:d-100_100:gtt:tmpls1:det_train+det_test:rec-80:prec-80 @test load=0 evaluate=1 @trainer vis=0 @train load=-1
+
+## @ orca:15.1
+# rand,gtt
+python36 main.py cfg=gpu:0,_gtt_:tmpls1,_ctmc_:strain-0_9:stest-20_29:d-100_100,_rand_:lost+active+tracked,_test_:++active:rand:++lost:rand:++tracked:rand:++glob,_train_:ctmc:s-0_9:d-100_100:gtt:tmpls1:det_train+det_test:rec-80:prec-80 @test load=0 evaluate=1 @trainer vis=0 @train load=-1
+

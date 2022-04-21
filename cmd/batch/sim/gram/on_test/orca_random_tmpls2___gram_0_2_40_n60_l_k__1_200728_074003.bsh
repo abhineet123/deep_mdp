@@ -1,0 +1,11 @@
+## @ orca:12.0
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_gram_:strain-0_2:stest-0_2:d-40_n60,_rand_:active,_svm_:lost:minr10,_test_:vis:++active:rand,_train_:gram:s-0_2:d-40_n60:lk:svm:wrapper:tmpls2:min10:++active_pt:svm @test load=0 evaluate=1 @train load=1
+
+## @ orca:12.1
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_gram_:strain-0_2:stest-0_2:d-40_n60,_svm_:active,_rand_:lost,_test_:vis:++lost:rand,_train_:gram:s-0_2:d-40_n60:lk:svm:wrapper:tmpls2:min10:++active_pt:svm @test load=0 evaluate=1 @train load=1
+
+## @ orca:12.2
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_gram_:strain-0_2:stest-0_2:d-40_n60,_svm_:active,_svm_:lost:minr10,_rand_:tracked,_test_:vis:++tracked:rand,_train_:gram:s-0_2:d-40_n60:lk:svm:wrapper:tmpls2:min10:++active_pt:svm @test load=0 evaluate=1 @train load=1
+
+## @ orca:13.0
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_gram_:strain-0_2:stest-0_2:d-40_n60,_rand_:active,_rand_:lost,_rand_:tracked,_test_:vis:++active:rand:++lost:rand:++tracked:rand,_train_:gram:s-0_2:d-40_n60:lk:svm:wrapper:tmpls2:min10:++active_pt:svm @test load=0 evaluate=1 @train load=1

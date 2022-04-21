@@ -1,0 +1,10 @@
+## @ grs:15.1
+# detrac no occ
+python36 main.py cfg=gpu:0,_lk_:tmpls2,_detrac_:strain-0_9:stest-20_29:d-100_100,_svm_:lost+active:min10,_train_:detrac:s-0_9:d-100_100:lk:svm:wrapper:tmpls2:min10,_active_:no_pt @test load=0
+
+## @ x99:15.1
+# detrac occ
+python36 main.py cfg=gpu:0,_lk_:tmpls2,_detrac_:strain-0_9:stest-20_29:d-100_100,_svm_:lost+active:min10,_train_:detrac:s-0_9:d-100_100:lk:svm:wrapper:tmpls2:min10:occ,_active_:no_pt @test load=0
+
+
+

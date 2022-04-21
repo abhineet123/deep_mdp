@@ -1,0 +1,38 @@
+# mot17
+python36 main.py cfg=gpu:0,_mot15_:strain-0_10:stest-0_10:d-100_100,_test_:res_from_gt:assoc-0:iou-{range(0,10,1)},_train_:mot17:s-0_10:d-100_100 @test load=0 evaluate=1
+
+python36 main.py cfg=gpu:0,_mot15_:strain-0_10:stest-0_10:d-100_100,_test_:res_from_gt:assoc-1:iou-{range(0,10,1)},_train_:mot17:s-0_10:d-100_100 @test load=0 evaluate=1
+
+python36 main.py cfg=gpu:0,_mot15_:strain-0_10:stest-0_10:d-100_100,_test_:res_from_gt-2:assoc-0:iou-{range(0,10,1)},_train_:mot17:s-0_10:d-100_100 @test load=0 evaluate=1
+
+python36 main.py cfg=gpu:0,_mot15_:strain-0_10:stest-0_10:d-100_100,_test_:res_from_gt-2:assoc-1:iou-{range(0,10,1)},_train_:mot17:s-0_10:d-100_100 @test load=0 evaluate=1
+
+# mot17
+python36 main.py cfg=gpu:0,_mot17_:strain-0_6:stest-0_6:d-100_100,_test_:res_from_gt:assoc-0:iou-{range(0,10,1)},_train_:mot17:s-0_6:d-100_60 @test load=0 evaluate=1
+
+python36 main.py cfg=gpu:0,_mot17_:strain-0_6:stest-0_6:d-100_60,_test_:res_from_gt:assoc-1:iou-{range(0,10,1)},_train_:mot17:s-0_6:d-100_60 @test load=0 evaluate=1
+
+python36 main.py cfg=gpu:0,_mot17_:strain-0_6:stest-0_6:d-100_60,_test_:res_from_gt-2:assoc-0:iou-{range(0,10,1)},_train_:mot17:s-0_6:d-100_60 @test load=0 evaluate=1
+
+python36 main.py cfg=gpu:0,_mot17_:strain-0_6:stest-0_6:d-100_60,_test_:res_from_gt-2:assoc-1:iou-{range(0,10,1)},_train_:mot17:s-0_6:d-100_60 @test load=0 evaluate=1
+
+
+# mot17_dpm
+python36 main.py cfg=gpu:0,_mot17_:dpm:strain-0_6:stest-0_6:d-100_100,_test_:res_from_gt:assoc-0:iou-{range(0,10,1)},_train_:mot17:dpm:s-0_6:d-100_60 @test load=0 evaluate=1
+
+python36 main.py cfg=gpu:0,_mot17_:dpm:strain-0_6:stest-0_6:d-100_60,_test_:res_from_gt:assoc-1:iou-{range(0,10,1)},_train_:mot17:dpm:s-0_6:d-100_60 @test load=0 evaluate=1
+
+python36 main.py cfg=gpu:0,_mot17_:dpm:strain-0_6:stest-0_6:d-100_60,_test_:res_from_gt-2:assoc-0:iou-{range(0,10,1)},_train_:mot17:dpm:s-0_6:d-100_60 @test load=0 evaluate=1
+
+python36 main.py cfg=gpu:0,_mot17_:dpm:strain-0_6:stest-0_6:d-100_60,_test_:res_from_gt-2:assoc-1:iou-{range(0,10,1)},_train_:mot17:dpm:s-0_6:d-100_60 @test load=0 evaluate=1
+
+
+# mot17_sdp
+python36 main.py cfg=gpu:0,_mot17_:sdp:strain-0_6:stest-0_6:d-100_100,_test_:res_from_gt:assoc-0:iou-{range(0,10,1)},_train_:mot17:sdp:s-0_6:d-100_60 @test load=0 evaluate=1
+
+python36 main.py cfg=gpu:0,_mot17_:sdp:strain-0_6:stest-0_6:d-100_60,_test_:res_from_gt:assoc-1:iou-{range(0,10,1)},_train_:mot17:sdp:s-0_6:d-100_60 @test load=0 evaluate=1
+
+python36 main.py cfg=gpu:0,_mot17_:sdp:strain-0_6:stest-0_6:d-100_60,_test_:res_from_gt-2:assoc-0:iou-{range(0,10,1)},_train_:mot17:sdp:s-0_6:d-100_60 @test load=0 evaluate=1
+
+python36 main.py cfg=gpu:0,_mot17_:sdp:strain-0_6:stest-0_6:d-100_60,_test_:res_from_gt-2:assoc-1:iou-{range(0,10,1)},_train_:mot17:sdp:s-0_6:d-100_60 @test load=0 evaluate=1
+

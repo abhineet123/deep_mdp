@@ -1,0 +1,13 @@
+## @ grs:12.0
+# max_lost100
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_detrac_:strain-0_59:stest-60_99:d-100_100,_rand_:active,_svm_:lost:minr10,_test_:max_lost100:vis:++active:rand,_train_:detrac:s-0_59:d-100_100:lk:svm:wrapper:tmpls2:min10:++active_pt:svm @test load=0 evaluate=1 @train load=1
+
+## @ grs:12.1
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_detrac_:strain-0_59:stest-60_99:d-100_100,_svm_:active,_rand_:lost,_test_:vis:++lost:rand,_train_:detrac:s-0_59:d-100_100:lk:svm:wrapper:tmpls2:min10:++active_pt:svm @test load=0 evaluate=1 @train load=1
+
+## @ grs:12.2
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_detrac_:strain-0_59:stest-60_99:d-100_100,_svm_:active,_svm_:lost:minr10,_rand_:tracked,_test_:vis:++tracked:rand,_train_:detrac:s-0_59:d-100_100:lk:svm:wrapper:tmpls2:min10:++active_pt:svm @test load=0 evaluate=1 @train load=1
+
+## @ grs:13.0
+# max_lost100
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_detrac_:strain-0_59:stest-60_99:d-100_100,_rand_:active,_rand_:lost,_rand_:tracked,_test_:max_lost100:vis:++active:rand:++lost:rand:++tracked:rand,_train_:detrac:s-0_59:d-100_100:lk:svm:wrapper:tmpls2:min10:++active_pt:svm @test load=0 evaluate=1 @train load=1

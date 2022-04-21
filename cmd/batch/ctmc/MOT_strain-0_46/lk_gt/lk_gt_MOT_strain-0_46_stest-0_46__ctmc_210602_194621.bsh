@@ -1,0 +1,2 @@
+## @ grs:12.0
+python36 main.py cfg=gpu:0,_lk_:tmpls1:gt,_ctmc_:strain-0_46:stest-0_46:d-100_100,_svm_:lost+active:min100:max50,_train_:ctmc:s-0_46:d-100_100:lk:gt:svm:min100:max50:tmpls1:det_train+det_test:MOT,_active_:no_pt @test load=0 evaluate=1 @train load=0 @trainer vis=0

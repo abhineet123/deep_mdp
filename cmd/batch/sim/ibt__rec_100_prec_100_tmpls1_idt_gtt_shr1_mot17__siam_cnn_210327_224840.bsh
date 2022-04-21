@@ -1,0 +1,19 @@
+## @ grs:12.0
+# idt
+python36 main.py cfg=gpu:0,_idt_:tmpls1:nofeat2-32,_mot17_:strain-0_6:stest-0_6:d-100_100,_cnn_:lost+active:r18:pt:e50:s:70_30:acc994:r0:b20:lr-5_4:schd:step-20_2:++lost:siam:++shr-1,_ibt_:dtest:tmpls2:n3:t2:mot17:s-0_6:d-100_100:idt:nofeat2-32:++active+lost:cnn:r18:pt:det_train+det_test:rec-100:prec-100:++shr-1,_active_:no_pt @ibt test_iters=2 min_samples=1 ips=010 @test load=0 @tester vis=0
+
+# python36 main.py cfg=gpu:0,_idt_:tmpls1:nofeat2,_mot17_:strain-0_0:stest-0_0:d-3_3,_cnn_:lost+active:r18:pt:e50:s:70_30:acc994:r0:b20:lr-5_4:schd:step-20_2:++lost:siam:++shr-1,_ibt_:dtest:tmpls2:n3:t2:mot17:s-0_0:d-3_3:idt:nofeat2-32:++active+lost:cnn:r18:pt:det_train+det_test:rec-100:prec-100:++shr-1,_active_:no_pt @ibt test_iters=2 min_samples=1 ips=000 @test load=0
+
+
+## @ grs:12.1
+# gtt-shr1
+ python36 main.py cfg=gpu:1,_gtt_:tmpls1:nofeat2-32,_mot17_:strain-0_6:stest-0_6:d-100_100,_cnn_:lost+active:r18:pt:e50:s:70_30:acc994:r0:b20:lr-5_4:schd:step-20_2:++lost:siam:++shr-1,_ibt_:dtest:tmpls2:n3:t2:mot17:s-0_6:d-100_100:gtt:nofeat2-32:++active+lost:cnn:r18:pt:det_train+det_test:rec-100:prec-100:++shr-1,_active_:no_pt @ibt test_iters=2 min_samples=1 ips=010 @test load=0 @tester vis=0
+
+# python36 main.py cfg=gpu:0,_gtt_:tmpls1:nofeat2,_mot17_:strain-0_0:stest-0_0:d-3_3,_cnn_:lost+active:r18:pt:e50:s:70_30:acc994:r0:b20:lr-5_4:schd:step-20_2:++lost:siam:++shr-1,_ibt_:dtest:tmpls2:n3:t2:mot17:s-0_0:d-3_3:gtt:nofeat2-32:++active+lost:cnn:r18:pt:det_train+det_test:rec-100:prec-100:++shr-1,_active_:no_pt @ibt test_iters=2 min_samples=1 ips=000 @test load=0
+
+
+## @ grs:13.0
+# gtt no shr
+ python36 main.py cfg=gpu:1,_gtt_:tmpls1:nofeat2-32,_mot17_:strain-0_6:stest-0_6:d-100_100,_cnn_:lost+active:r18:pt:e50:s:70_30:acc994:r0:b20:lr-5_4:schd:step-20_2:tb_vis:++lost:siam,_ibt_:dtest:tmpls2:n3:t2:mot17:s-0_6:d-100_100:gtt:nofeat2-32:++active+lost:cnn:r18:pt:det_train+det_test:rec-100:prec-100,_active_:no_pt @ibt test_iters=2 min_samples=1 ips=100 @test load=0 @tester vis=0
+
+

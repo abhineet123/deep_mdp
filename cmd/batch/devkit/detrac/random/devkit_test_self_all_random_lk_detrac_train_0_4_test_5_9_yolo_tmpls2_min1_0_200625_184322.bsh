@@ -1,0 +1,38 @@
+# ,_svm_:active,_svm_:lost:min10,_rand_:tracked,_test_:vis:++tracked:rand
+# ,_rand_:active,_rand_:lost,_rand_:tracked,_test_:vis:++active:rand:++lost:rand:++tracked:rand
+
+## @ grs:12.0
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_detrac_:strain-0_4:stest-5_9:d-100_100,_rand_:active,_rand_:lost,_rand_:tracked,_test_:vis:++active:rand:++lost:rand:++tracked:rand,_train_:detrac:s0_4:d-100_100:lk:svm:wrapper:tmpls2:min10:det_train+det_test:yolo-0 @test load=0 evaluate=1 @train load=1
+
+## @ grs:12.1
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_detrac_:strain-0_4:stest-5_9:d-100_100,_rand_:active,_rand_:lost,_rand_:tracked,_test_:vis:++active:rand:++lost:rand:++tracked:rand,_train_:detrac:s0_4:d-100_100:lk:svm:wrapper:tmpls2:min10:det_train+det_test:yolo-2 @test load=0 evaluate=1 @train load=1
+
+## @ grs:12.2
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_detrac_:strain-0_4:stest-5_9:d-100_100,_rand_:active,_rand_:lost,_rand_:tracked,_test_:vis:++active:rand:++lost:rand:++tracked:rand,_train_:detrac:s0_4:d-100_100:lk:svm:wrapper:tmpls2:min10:det_train+det_test:yolo-4 @test load=0 evaluate=1 @train load=1
+
+## @ grs:12.3
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_detrac_:strain-0_4:stest-5_9:d-100_100,_rand_:active,_rand_:lost,_rand_:tracked,_test_:vis:++active:rand:++lost:rand:++tracked:rand,_train_:detrac:s0_4:d-100_100:lk:svm:wrapper:tmpls2:min10:det_train+det_test:yolo-14 @test load=0 evaluate=1 @train load=1
+
+## @ grs:13.0
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_detrac_:strain-0_4:stest-5_9:d-100_100,_rand_:active,_rand_:lost,_rand_:tracked,_test_:vis:++active:rand:++lost:rand:++tracked:rand,_train_:detrac:s0_4:d-100_100:lk:svm:wrapper:tmpls2:min10:det_train+det_test:yolo-203 @test load=0 evaluate=1 @train load=1
+
+## @ x99:6.0
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_detrac_:strain-0_4:stest-5_9:d-100_100,_rand_:active,_rand_:lost,_rand_:tracked,_test_:vis:++active:rand:++lost:rand:++tracked:rand,_train_:detrac:s0_4:d-100_100:lk:svm:wrapper:tmpls2:min10:det_train+det_test:yolo-475 @test load=0 evaluate=1 @train load=1
+
+## @ x99:6.1
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_detrac_:strain-0_4:stest-5_9:d-100_100,_rand_:active,_rand_:lost,_rand_:tracked,_test_:vis:++active:rand:++lost:rand:++tracked:rand,_train_:detrac:s0_4:d-100_100:lk:svm:wrapper:tmpls2:min10:det_train+det_test:yolo-656 @test load=0 evaluate=1 @train load=1
+
+## @ x99:6.2
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_detrac_:strain-0_4:stest-5_9:d-100_100,_rand_:active,_rand_:lost,_rand_:tracked,_test_:vis:++active:rand:++lost:rand:++tracked:rand,_train_:detrac:s0_4:d-100_100:lk:svm:wrapper:tmpls2:min10:det_train+det_test:yolo-777 @test load=0 evaluate=1 @train load=1
+
+## @ x99:7.0
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_detrac_:strain-0_4:stest-5_9:d-100_100,_rand_:active,_rand_:lost,_rand_:tracked,_test_:vis:++active:rand:++lost:rand:++tracked:rand,_train_:detrac:s0_4:d-100_100:lk:svm:wrapper:tmpls2:min10:det_train+det_test:yolo-863 @test load=0 evaluate=1 @train load=1
+
+## @ x99:7.1
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_detrac_:strain-0_4:stest-5_9:d-100_100,_rand_:active,_rand_:lost,_rand_:tracked,_test_:vis:++active:rand:++lost:rand:++tracked:rand,_train_:detrac:s0_4:d-100_100:lk:svm:wrapper:tmpls2:min10:det_train+det_test:yolo-930 @test load=0 evaluate=1 @train load=1
+
+## @ orca:12.0
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_detrac_:strain-0_4:stest-5_9:d-100_100,_rand_:active,_rand_:lost,_rand_:tracked,_test_:vis:++active:rand:++lost:rand:++tracked:rand,_train_:detrac:s0_4:d-100_100:lk:svm:wrapper:tmpls2:min10:det_train+det_test:yolo-963 @test load=0 evaluate=1 @train load=1
+
+## @ orca:12.1
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_detrac_:strain-0_4:stest-5_9:d-100_100,_rand_:active,_rand_:lost,_rand_:tracked,_test_:vis:++active:rand:++lost:rand:++tracked:rand,_train_:detrac:s0_4:d-100_100:lk:svm:wrapper:tmpls2:min10:det_train+det_test:yolo-983 @test load=0 evaluate=1 @train load=1

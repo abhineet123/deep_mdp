@@ -1,0 +1,19 @@
+## @ x99:15.0
+# mot15 no occ
+python36 main.py cfg=gpu:0,_lk_:tmpls2,_mot15_:strain-0_10:stest-0_10:d-100_100,_svm_:lost+active:min10,_train_:mot15:s-0_10:d-100_100:lk:svm:wrapper:tmpls2:min10,_active_:no_pt @test load=0
+
+## @ x99:15.1
+# mot15 occ
+python36 main.py cfg=gpu:1,_lk_:tmpls2,_mot15_:strain-0_10:stest-0_10:d-100_100,_svm_:lost+active:min10,_train_:mot15:s-0_10:d-100_100:lk:svm:wrapper:tmpls2:min10:occ,_active_:no_pt @test load=0
+
+
+## @ grs:15.0
+# mot17 no occ
+python36 main.py cfg=gpu:0,_lk_:tmpls2,_mot17_:strain-0_6:stest-0_6:d-100_100,_svm_:lost+active:min10,_train_:mot17:s-0_6:d-100_100:lk:svm:wrapper:tmpls2:min10,_active_:no_pt @test load=0
+
+## @ grs:15.1
+# mot17 occ
+python36 main.py cfg=gpu:1,_lk_:tmpls2,_mot17_:strain-0_6:stest-0_6:d-100_100,_svm_:lost+active:min10,_train_:mot17:s-0_6:d-100_100:lk:svm:wrapper:tmpls2:min10:occ,_active_:no_pt @test load=0
+
+
+

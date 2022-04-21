@@ -1,0 +1,18 @@
+## @ orca:12.1
+# r18,nofeat2-64,r0,100
+python36 main.py cfg=gpu:0,_lk_:tmpls1:nofeat2-64,_ctc_:strain-0_46:stest-0_46:d-50_n50,_cnn_:lost+active:r18:pt:e50:s:70_30:acc994:r0:b20:lr-5_4:schd:step-20_2,_tracked_:none:thresh-10,_ibt_:dtest:tmpls1:n1:t2:ctc:s-0_46:d-50_n50:lk:nofeat2-64:++active+lost:cnn:r18:pt:det_train+det_test:rec-100:prec-100,_active_:no_pt @ibt test_iters=0 min_samples=1 ips=030 @test load=0  @@replace modules=active token=grs:13.1:210424_055144_836621 @tester vis=0
+
+# python36 main.py cfg=gpu:1,_lk_:tmpls1:nofeat2-64,_ctc_:strain-0_0:stest-0_0:d-10_10,_cnn_:lost+active:r18:pt:e5:s:70_30:acc994:r0:b20:lr-5_4:schd:step-20_2,_tracked_:none:thresh-10,_ibt_:dtest:tmpls1:n1:t2:ctc:s-0_46:d-50_n50:lk:nofeat2-64:++active+lost:cnn:r18:pt:det_train+det_test:rec-100:prec-100,_active_:no_pt @ibt test_iters=0 min_samples=1 ips=000 @test load=0 @tester vis=0
+
+## @ orca:13.1
+# r18,nofeat2-64,r0,80
+python36 main.py cfg=gpu:1,_lk_:tmpls1:nofeat2-64,_ctc_:strain-0_46:stest-0_46:d-50_n50,_cnn_:lost+active:r18:pt:e50:s:70_30:acc994:r0:b20:lr-5_4:schd:step-20_2,_tracked_:none:thresh-10,_ibt_:dtest:tmpls1:n1:t2:ctc:s-0_46:d-50_n50:lk:nofeat2-64:++active+lost:cnn:r18:pt:det_train+det_test:rec-80:prec-80,_active_:no_pt @ibt test_iters=0 min_samples=1 ips=030 @test load=0  @@replace modules=active token=grs:13.1:210424_055144_836621 @tester vis=0
+
+## @ orca:14.1
+# r18,nofeat2-64,r0,60
+python36 main.py cfg=gpu:0,_lk_:tmpls1:nofeat2-64,_ctc_:strain-0_46:stest-0_46:d-50_n50,_cnn_:lost+active:r18:pt:e50:s:70_30:acc994:r0:b20:lr-5_4:schd:step-20_2,_tracked_:none:thresh-10,_ibt_:dtest:tmpls1:n1:t2:ctc:s-0_46:d-50_n50:lk:nofeat2-64:++active+lost:cnn:r18:pt:det_train+det_test:rec-60:prec-60,_active_:no_pt @ibt test_iters=0 min_samples=1 ips=030 @test load=0  @@replace modules=active token=grs:13.1:210424_055144_836621 @tester vis=0
+
+## @ orca:15.1
+# r18,nofeat2-64,r0,40
+python36 main.py cfg=gpu:1,_lk_:tmpls1:nofeat2-64,_ctc_:strain-0_46:stest-0_46:d-50_n50,_cnn_:lost+active:r18:pt:e50:s:70_30:acc994:r0:b20:lr-5_4:schd:step-20_2,_tracked_:none:thresh-10,_ibt_:dtest:tmpls1:n1:t2:ctc:s-0_46:d-50_n50:lk:nofeat2-64:++active+lost:cnn:r18:pt:det_train+det_test:rec-40:prec-40,_active_:no_pt @ibt test_iters=0 min_samples=1 ips=030 @test load=0  @@replace modules=active token=grs:13.1:210424_055144_836621 @tester vis=0
+

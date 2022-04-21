@@ -1,0 +1,11 @@
+## @ x99:6.0
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_detrac_:strain-0_59:stest-0_59:d-100_100,_oracle_:active,_svm_:lost:minr10,_test_:vis:++active:oracle:abs,_train_:detrac:s-0_59:d-100_100:lk:svm:wrapper:tmpls2:min10:++active_pt:svm @test load=0 evaluate=1 @train load=1
+
+## @ x99:6.1
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_detrac_:strain-0_59:stest-0_59:d-100_100,_svm_:active,_oracle_:lost:abs,_test_:vis:++lost:oracle:abs,_train_:detrac:s-0_59:d-100_100:lk:svm:wrapper:tmpls2:min10:++active_pt:svm @test load=0 evaluate=1 @train load=1
+
+## @ x99:6.2
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_detrac_:strain-0_59:stest-0_59:d-100_100,_svm_:active,_svm_:lost:minr10,_oracle_:tracked:abs,_test_:vis:++tracked:oracle:abs,_train_:detrac:s-0_59:d-100_100:lk:svm:wrapper:tmpls2:min10:++active_pt:svm @test load=0 evaluate=1 @train load=1
+
+## @ x99:7.0
+python36 main.py cfg=gpu:0,_lk_:tmpls2:wrapper,_detrac_:strain-0_59:stest-0_59:d-100_100,_oracle_:active,_oracle_:lost:abs,_oracle_:tracked:abs,_test_:vis:++active:oracle:++lost:oracle:abs:++tracked:oracle:abs,_train_:detrac:s-0_59:d-100_100:lk:svm:wrapper:tmpls2:min10:++active_pt:svm @test load=0 evaluate=1 @train load=1

@@ -1,0 +1,15 @@
+# does not work:
+# CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-8.0 CUDNN_PATH=/usr/local/cuda-8.0/cuda/lib64/libcudnn.so.5 cmake ..
+
+cmake -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-8.0 -DMDP_PY_INSTALL_DIR=/usr/local/lib/python3.5/dist-packages/ ..
+cmake -D CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-8.0 ..
+
+
+cmake -DPYTHON_LIBRARY=C:\Python35\libs\python35.lib -DPYTHON_INCLUDE_DIR=C:\Python35\include ../..
+
+cmake -DPYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.5.so -DPYTHON_INCLUDE_DIR=/usr/include/python3.5 -DPY_VER=3.5 ../..
+
+cmake -DMDP_PY_INSTALL_DIR=/usr/local/lib/python3.5/dist-packages/ ..
+
+
+

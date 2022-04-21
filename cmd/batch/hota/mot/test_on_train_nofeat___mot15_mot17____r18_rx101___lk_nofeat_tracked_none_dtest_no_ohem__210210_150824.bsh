@@ -1,0 +1,23 @@
+## @ x99:14.0
+# mot15 r18
+python36 main.py cfg=gpu:0,_lk_:tmpls2:nofeat,_mot15_:strain-0_10:stest-0_10:d-100_100,_cnn_:lost+active:r18:pt:e50:s:70_30:acc994:r2:b20:lr-5_4:schd:step-20_2,_tracked_:none:thresh-10,_ibt_:dtest:tmpls2:n3:t2:mot15:s-0_10:d-100_100:lk:nofeat:+ctm:darpn:m0:++active+lost:cnn:r18:pt,_active_:no_pt @ibt test_iters=2 min_samples=1 start=010 @test load=0
+
+## @ x99:14.1
+# mot15 rx101 
+python36 main.py cfg=gpu:1,_lk_:tmpls2:nofeat,_mot15_:strain-0_10:stest-0_10:d-100_100,_cnn_:lost+active:rx101:pt:e50:s:70_30:acc994:r2:b20:lr-5_4:schd:step-20_2,_tracked_:none:thresh-10,_ibt_:dtest:tmpls2:n3:t2:mot15:s-0_10:d-100_100:lk:nofeat:+ctm:darpn:m0:++active+lost:cnn:rx101:pt,_active_:no_pt @ibt test_iters=2 min_samples=1 start=010 @test load=0
+
+
+## @ grs:14.0
+# mot17 r18
+python36 main.py cfg=gpu:0,_lk_:tmpls2:nofeat,_mot17_:strain-0_6:stest-0_6:d-100_100,_cnn_:lost+active:r18:pt:e50:s:70_30:acc994:r2:b20:lr-5_4:schd:step-20_2,_tracked_:none:thresh-10,_ibt_:dtest:tmpls2:n3:t2:mot17:s-0_6:d-100_100:lk:nofeat:+ctm:darpn:m0:++active+lost:cnn:r18:pt,_active_:no_pt @ibt test_iters=2 min_samples=1 start=010 @test load=0
+
+python36 main.py cfg=gpu:0,_lk_:tmpls2:nofeat,_mot17_:strain-0_6:stest-0_6:d-100_100,_cnn_:lost+active:r18:pt:e50:s:70_30:acc994:r2:b20:lr-5_4:schd:step-20_2,_tracked_:none:thresh-10,_ibt_:dtest:tmpls2:n3:t2:mot17:s-0_6:d-100_100:lk:nofeat:++active+lost:cnn:r18:pt,_active_:no_pt @ibt test_iters=2 min_samples=1 ips=000 phases=0 @test load=1
+
+## @ grs:14.1
+# mot17 rx101 
+python36 main.py cfg=gpu:1,_lk_:tmpls2:nofeat,_mot17_:strain-0_6:stest-0_6:d-100_100,_cnn_:lost+active:rx101:pt:e50:s:70_30:acc994:r2:b20:lr-5_4:schd:step-20_2,_tracked_:none:thresh-10,_ibt_:dtest:tmpls2:n3:t2:mot17:s-0_6:d-100_100:lk:nofeat:+ctm:darpn:m0:++active+lost:cnn:rx101:pt,_active_:no_pt @ibt test_iters=2 min_samples=1 start=010 @test load=0
+
+
+
+log/mot17_0_6_100_100_lk_nofeat_darpn_nofeat_m0_tmpls2_ctm_darpn_m0/active_cnn_r18_pt_lost_cnn_r18_pt/test_batch_0/MOT17_0_6_100_100/MOT17-02-FRCNN_1_600.txt
+log/mot17_0_6_100_100_lk_darpn_nofeat_m0_tmpls2_ctm_darpn_m0/active_cnn_r18_pt_lost_cnn_r18_pt/active_lost_batch_2_acc0/test/MOT17_0_6_100_100

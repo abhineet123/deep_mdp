@@ -1,0 +1,19 @@
+## @ grs:12.1
+# r18,nofeat2-32,r0 detrac-0_9
+
+python36 main.py cfg=gpu:0,_dummy_:nofeat2,_detrac_:strain-0_9:stest-60_99:d-100_100,_cnn_:lost+active:r18:pt:e1:s:70_30:acc994:r0:b20:lr-5_4:schd:step-20_2:++lost:siam:++shr-1,_ibt_:dtest:tmpls2:n3:t2:detrac:s-0_9:d-100_100:dummy:nofeat2-32:++active+lost:cnn:r18:pt:det_train+det_test:rec-100:prec-100:++shr-1,_active_:no_pt @ibt test_iters=2 min_samples=1 ips=000 @test load=0
+
+python36 main.py cfg=gpu:0,_lk_:tmpls2:nofeat2-32,_detrac_:strain-0_9:stest-60_99:d-100_100,_cnn_:lost+active:r18:pt:e50:s:70_30:acc994:r0:b20:lr-5_4:schd:step-20_2,_tracked_:none:thresh-10,_ibt_:dtest:tmpls2:n3:t2:detrac:s-0_9:d-100_100:lk:nofeat2-32:++active+lost:cnn:r18:pt:det_train+det_test:rec-100:prec-100,_active_:no_pt @ibt test_iters=2 min_samples=1 ips=000 @test load=0
+
+
+## @ x99:12.1
+# r18,nofeat2-32, mot15
+python36 main.py cfg=gpu:0,_lk_:tmpls2:nofeat2-32,_mot15_:strain-0_10:stest-0_10:d-100_100,_cnn_:lost+active:r18:pt:e50:s:70_30:acc994:r0:b20:lr-5_4:schd:step-20_2,_tracked_:none:thresh-10,_ibt_:dtest:tmpls2:n3:t2:mot15:s-0_10:d-100_100:lk:nofeat2-32:++active+lost:cnn:r18:pt:det_train+det_test:rec-100:prec-100,_active_:no_pt @ibt test_iters=2 min_samples=1 ips=000 @test load=0
+
+python36 main.py cfg=gpu:0,_dummy_:nofeat2,_mot15_:strain-0_10:stest-0_10:d-100_100,_cnn_:lost+active:r18:pt:e1:s:70_30:acc994:r0:b20:lr-5_4:schd:step-20_2:++lost:siam:++shr-1,_ibt_:dtest:tmpls2:n3:t2:mot15:s-0_10:d-100_100:dummy:nofeat2-32:++active+lost:cnn:r18:pt:det_train+det_test:rec-100:prec-100:++shr-1,_active_:no_pt @ibt test_iters=2 min_samples=1 ips=000 @test load=0
+
+
+## @ orca:12.1
+# r18,nofeat2-32, mot17
+
+python36 main.py cfg=gpu:0,_dummy_:nofeat2,_mot17_:strain-0_6:stest-0_6:d-100_100,_cnn_:lost+active:r18:pt:e1:s:70_30:acc994:r0:b20:lr-5_4:schd:step-20_2:++lost:siam:++shr-1,_ibt_:dtest:tmpls2:n3:t2:mot17:s-0_6:d-100_100:dummy:nofeat2-32:++active+lost:cnn:r18:pt:det_train+det_test:rec-100:prec-100:++shr-1,_active_:no_pt @ibt test_iters=2 min_samples=1 ips=000 @test load=0

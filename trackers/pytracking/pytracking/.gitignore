@@ -1,0 +1,15 @@
+*.idea
+*~
+*__pycache__*
+*.pyc
+*.pytest_cache
+*.ipynb_checkpoints/
+ltr/run_ltr_local.py
+ltr/train_settings/*/debug.py
+pytracking/parameter/*/debug.py
+pytracking/networks/
+pytracking/tracking_results/
+pytracking/result_plots/
+pytracking/run_local.py
+
+pretrained/
