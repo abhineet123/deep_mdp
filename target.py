@@ -402,13 +402,13 @@ class Target:
 
     def update(self, frame, frame_id, detections, associate, assoc_with_ann):
         """
-        to be called for each subsequent frame of the trajectory
+        to be called for each frame of the trajectory after the first one
 
         :type frame: np.ndarray
         :type frame_id: int
         :type detections: np.ndarray
-        :param int associate
-        :param int assoc_with_ann
+        :type associate: bool
+        :type assoc_with_ann: bool
 
         :rtype: None | int
         """
@@ -436,6 +436,7 @@ class Target:
         assert self.state != MDPStates.active, 'Target cannot be updated in the active state'
 
         if self.state == MDPStates.tracked:
+            """target was in the tracked state in the previous frame"""
             self.lost.reset_streak()
             self.prev_state = MDPStates.tracked
             self.predicted_location[:] = self.history.predict(self.frame_id, self._frame)
@@ -476,13 +477,12 @@ class Target:
             #     self._logger.debug('paused')
 
         elif self.state == MDPStates.lost:
-            """target got lost in the previous frame or earlier
+            """target was in the lost state in the previous frame
             """
 
             """temporarily disabling the resetting of tracked streak to maintain
             correspondence with the original code for debugging purposes
             """
-
             # self.tracked.resetStreak()
 
             self.predicted_location[:] = self.history.predict(self.frame_id, self._frame)
@@ -491,7 +491,8 @@ class Target:
             # if annotations is not None and ann_idx is None:
             #     ann_idx, annotations = self._infer_target(frame_id, annotations)
 
-            self.lost.update(self._frame, self.frame_id, detections, self.predicted_location, self.history.locations[-1, :],
+            self.lost.update(self._frame, self.frame_id, detections, self.predicted_location,
+                             self.history.locations[-1, :],
                              self._curr_ann_idx)
 
             if self.lost.state == MDPStates.inactive:

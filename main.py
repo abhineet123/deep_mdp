@@ -18,14 +18,15 @@ from utilities import CustomLogger, SIIF, profile, id_token_to_cmd_args
 from data import Data
 from trainer import Trainer
 
-from ibt import IBT, MainParams
+from ibt import IBT
 from run import Train, Test
+from params import Params
 
 
 def main(params):
     """
 
-    :param MainParams params:
+    :param Params params:
     :return:
     """
 
@@ -71,7 +72,7 @@ if __name__ == '__main__':
     print(command)
 
     """get parameters"""
-    _params = MainParams()
+    _params = Params()
     with profile('paramparse', enable=1):
         args_in = paramparse.process(_params)
     _params.process(args_in)
@@ -104,7 +105,7 @@ if __name__ == '__main__':
 
         cmd_args = list(cmd_args)
 
-        main_params = MainParams()
+        main_params = Params()
         paramparse.process(main_params, cmd_args=cmd_args, allow_unknown=1)
 
         main_params.test.replace = replace

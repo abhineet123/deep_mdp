@@ -21,7 +21,6 @@ from models.dummy import Oracle
 from models.cnn import CNN
 
 from trackers.tracker_base import TrackerBase
-from trackers.lk import LK
 
 from utilities import MDPStates, compute_overlap, draw_box, col_bgr, resize_ar, stack_images, write_to_files, \
     annotate_and_show, CVConstants, AnnotationStatus, CustomLogger, TrackingStatus, write_df, \
@@ -978,7 +977,7 @@ class Lost(PolicyBase):
         """
         self._track_locations = self._locations_multi[self._local_assoc_det_id, ...]
 
-        """for some foul annoying buggy crappy reason, this tracking was done again in the original crappy code"""
+        """for some foul annoying buggy reason, this tracking was done again in the original code"""
         # tracking_result = self._templates.track(np.expand_dims(self._track_locations, 0),
         #                                         np.expand_dims(self._roi[self._local_assoc_det_id, :, :], 0),
         #                                         np.expand_dims(self._transform[self._local_assoc_det_id, :], 0),

@@ -25,18 +25,16 @@ logging.getLogger("paramiko").setLevel(logging.WARNING)
 
 import paramparse
 
-from pprint import pformat
-
 from objects import Objects, TrackingResults
 from input import Input
 from data import Data
 from visualizer import Visualizer, ObjTypes
-from ibt import MainParams
+from params import Params
 from utilities import CustomLogger, SIIF, linux_path, stack_images, annotate_and_show, print_df, profile, \
     check_load_fnames, SCP
 
 
-class Params:
+class VisParams:
     """
     :ivar res_type: the type of tracking results to use for  visualization:
         0: standard tracking results
@@ -180,7 +178,7 @@ def main():
     """setup logger"""
     _logger = CustomLogger.setup(__name__)
 
-    params = Params()
+    params = VisParams()
 
     paramparse.process(params, allow_unknown=1)
 
@@ -385,7 +383,7 @@ def main():
 
     all_args = list(cmd_args) + list(sys.argv[1:])
 
-    main_params = MainParams()
+    main_params = Params()
     paramparse.process(main_params, cmd_args=all_args, allow_unknown=1)
 
     main_params.process()

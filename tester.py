@@ -100,14 +100,14 @@ class Tester:
                 'before testing on it; '
                 'hack to enable lost and tracked policies to be evaluated independently of active',
         :ivar ignore_missing_ann: 'disable annotation dependent functionality if annotations not found '
-                      'and continue testinginstead of raising an error; should be on for datasets '
+                      'and continue testing instead of raising an error; should be on for datasets '
                       'where test sets do not have labels',
         :ivar save_debug_info: '>= 1: save lost targets in output txt; '
                    '2: also save trajectories whose length < min_trajectory_len with a '
                    'corresponding validity marker in an extra column',
         :ivar filtering_method: 0: iterative mutual maximum overlap between detections and targets,
-                                1: annoying old crappy heuristics based filtering with iou and ioa comparisons
-                                between individual pairs of dets and targets
+                                1: annoying old heuristics based filtering with iou and ioa comparisons
+                                between individual pairs of detections and targets
 
         :ivar override: 'Override parameters in the trained target with those specified at runtime; '
                     'the learned model in the target might depend on several of these parameters '
@@ -626,10 +626,11 @@ class Tester:
                         self.states[self.lost_seq_ids[sup_id]] = MDPStates.inactive
                     # print()
 
-            status_msg = '{} :: {}/{} fps: {:.3f} ({:.3f}) n_detections: {:4d} tracked: {:4d} lost: {:4d} total: {' \
-                         ':5d}'.format(
-                self.input.seq_name, frame_id + 1, self.input.n_frames, fps, avg_fps, n_detections,
-                self._n_tracked, self._n_lost, self.n_total_targets)
+            status_msg = f'{self.input.seq_name} :: {frame_id + 1}/{self.input.n_frames} ' \
+                f'fps: {fps:.3f} ({avg_fps:.3f}) ' \
+                f'n_detections: {n_detections:4d} ' \
+                f'tracked: {self._n_tracked:4d} ' \
+                f'lost: {self._n_lost:4d} total: {self.n_total_targets:5d}'
 
             if not self.vis and (not self._params.tee_log or frame_id % tee_frame_gap == 0):
                 if self._params.verbose == 2:
@@ -640,8 +641,8 @@ class Tester:
 
             if self._params.max_targets > 0:
                 assert self.n_live <= self._params.max_targets, \
-                    "\n{}\nn_active_targets: {} exceeds the max allowed: {}".format(
-                        status_msg, self.n_live, self._params.max_targets)
+                    f"\n{status_msg}\nn_active_targets: {self.n_live} " \
+                        f"exceeds the max allowed: {self._params.max_targets}"
 
             # if self.vis:
             #     print()
@@ -708,12 +709,14 @@ class Tester:
                     # lost targets are processed separately
                     continue
 
+                """remove detections corresponding to already processed targets"""
                 filtered_det_data, _ = self._filter_detections(frame, det_data, self.target_sort_idx[:i])
             else:
                 filtered_det_data = det_data
 
             """update target with current frame"""
-            target.update(frame, frame_id, filtered_det_data, associate=1, assoc_with_ann=0)
+            target.update(frame, frame_id, filtered_det_data,
+                          associate=True, assoc_with_ann=False)
 
             if self._params.verbose == 3:
                 self._logger.info('(after update){:d} :: Target {:d} state: {:s}'.format(
@@ -751,7 +754,8 @@ class Tester:
                                     filtered_det_data = tracked_location_data
 
                         n_filtered_det = filtered_det_data.shape[0]
-                        target.update(frame, frame_id, filtered_det_data, associate=1, assoc_with_ann=0)
+                        target.update(frame, frame_id, filtered_det_data,
+                                      associate=True, assoc_with_ann=False)
 
                         if self._params.lost_heuristics:
                             target.lost_exit_heuristics(frame)
@@ -794,7 +798,9 @@ class Tester:
             if _n_lost > 0 and _n_det > 0:
                 dist = np.zeros((_n_det, _n_lost))
                 for i, _id in enumerate(lost_idx):
-                    self.targets[_id].update(frame, frame_id, filtered_det_data, associate=0, assoc_with_ann=0)
+                    """partial target update  to compute the corresponding association scores / distances"""
+                    self.targets[_id].update(frame, frame_id, filtered_det_data,
+                                             associate=False, assoc_with_ann=False)
                     self.targets[_id].lost.get_distances(dist[:, i])
                 assignments, cost = pyHungarian.get(dist)
                 for i in range(assignments.size):
@@ -837,7 +843,7 @@ class Tester:
             filtered_idx, n_inactive_targets, inactive_idx = self._track(frame_id, frame, det_data, n_det)
 
         """try to create a new target for each filtered unassociated detection;
-        also associate GT objects with detections to save corresponding results if enabled 
+        also associate GT with detections to save corresponding results if enabled 
         or use it for decision statistics otherwise
         """
         self._add_targets(frame_id, frame, det_data, filtered_idx, annotations)
@@ -1037,10 +1043,10 @@ class Tester:
 
     def _sort_targets(self):
         """
-        :rtype: None
+        :rtype: np.ndarray | None
         """
         if self.n_live == 0:
-            return
+            return None
 
         idx1 = np.flatnonzero(self.tracked_streaks > self._params.target_sort_sep)
         """stable sorting to maintain correspondence with the original code"""
@@ -1124,11 +1130,19 @@ class Tester:
             return det_data, all_idx
 
         if self._params.filtering_method == 0:
+
+            """
+            iterative mutual maximum overlap between detections and targets
+            """
             det_to_gt, gt_to_det, unassociated_dets, unassociated_gts = find_associations(
                 frame, det_data[:, 2:6], locations[tracked_idx, :], self._params.filter_iou_thresh, use_hungarian=0)
 
             filtered_idx = unassociated_dets
         elif self._params.filtering_method == 1:
+            """
+            annoying old heuristics based filtering with iou and ioa comparisons 
+            between individual pairs of detections and targets
+            """
             iou = np.empty((det_data.shape[0], tracked_idx.size))
             ioa_1 = np.empty((det_data.shape[0], tracked_idx.size))
             compute_overlaps_multi(iou, ioa_1, None, det_data[:, 2:6], locations[tracked_idx, :], self._logger)

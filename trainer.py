@@ -15,9 +15,6 @@ from visualizer import Visualizer, ObjTypes
 from utilities import linux_path, write, CustomLogger, MDPStates, DebugParams, BaseParams
 
 
-# from utilities import build_targets_3d, build_targets_seq
-
-
 class Trainer:
     """
     :type _params: Trainer.Params
@@ -39,7 +36,7 @@ class Trainer:
         :ivar overlap_occ: 'IOA threshold for deciding if an annotation is to be considered as occluded by another',
         :ivar ignore_too_difficult: 'dominate training without raising an error if all the trajectories are found to
         be too difficult to train on; disabling it would cause an assertion error to be raised indicating complete and
-        utter failure of training and the corresponding garbage trained model due to the crappy method that it is'
+        utter failure of training and the corresponding garbage trained model due to the method that it is'
         :ivar max_iter: 'Maximum number of iterations allowed on any given sequence before training on that sequence is'
                     ' considered to be complete - an iteration is considered to have happened when one instance of'
                     'training over a particular trajectory has been completed',
@@ -192,12 +189,14 @@ class Trainer:
         if not self.initialize(data):
             raise AssertionError('Trainer initialization failed')
 
-        if self._params.yolo3d == 1:
-            build_targets_3d(self._frames, self._annotations)
-            exit()
-        elif self._params.yolo3d == 2:
-            build_targets_seq(self._frames, self._annotations)
-            exit()
+        # if self._params.yolo3d == 1:
+        #     from utilities import build_targets_3d
+        #     build_targets_3d(self._frames, self._annotations)
+        #     exit()
+        # elif self._params.yolo3d == 2:
+        #     from utilities import build_targets_seq
+        #     build_targets_seq(self._frames, self._annotations)
+        #     exit()
 
         if not self.update():
             raise AssertionError('Trainer update failed')
@@ -387,10 +386,10 @@ class Trainer:
 
         if self._params.mode in Trainer.Modes.asynchronous:
             """Associate using annotations during policy specific asynchronous training"""
-            assoc_with_ann = 1
+            assoc_with_ann = True
         else:
             """Associate using policy for synchronous training"""
-            assoc_with_ann = 0
+            assoc_with_ann = False
 
         while True:
             """iterate over all trajectories multiple times
@@ -428,6 +427,7 @@ class Trainer:
                     counter.fill(0)
                     train_id = -1
 
+            """find the next trajectory to train on"""
             while True:
                 """check the next trajectory, circularly if needed, and use it for training if it
                 has not been marked as good thus far
@@ -541,7 +541,10 @@ class Trainer:
                                            f'(frame {frame_id} ({start_frame_id} --> {end_frame_id})')
                     break
                 elif self.target.state == MDPStates.active:
-                    """create a new target on the max iou detection"""
+                    """
+                    create a new target on the max iou detection
+                    trajectory filtering ensures that the first frame always has a matching detection  
+                    """
                     best_det_id = annotations.max_cross_iou_idx[traj_start_id]
                     best_det_data = detections.data[best_det_id, :]
                     if self._params.verbose:
@@ -554,12 +557,12 @@ class Trainer:
                     """lost and tracked states"""
                     learn = False
 
-                    if self._params.mode == 0 and self.target.state == MDPStates.lost:
+                    if self._params.mode == Trainer.Modes.standard and self.target.state == MDPStates.lost:
                         learn = True
-                        """have to take this circuitous route to deal with the case of empty curr_frame_ann_idx,
+                        """have to take this circuitous route to deal with the case of empty "curr_ann_idx",
                         i.e. when there are no annotations in the current frame but we still want
                         to learn; an empty matrix will never give True on == nor will it give True on !=
-                        which in this case will give the desired result since learn will remain true
+                        which in this case will give the desired result since "learn" will remain true
                         """
                         if curr_ann_idx is not None:
                             """indexing with empty matrix returns another empty matrix"""
@@ -584,7 +587,7 @@ class Trainer:
                     # start_t = time.time()
 
                     self.target.update(curr_frame, frame_id, curr_det_data,
-                                       associate=1, assoc_with_ann=assoc_with_ann)
+                                       associate=True, assoc_with_ann=assoc_with_ann)
 
                     # if self.params.debug.memory_tracking:
                     #     print('update:')
@@ -695,16 +698,6 @@ class Trainer:
             print(s.getvalue())
 
         return True
-
-    # def _getFrame(self, frame_id):
-    #     # input pipeline does not support random frame reading yet so frames must be stored for
-    #     # non sequential access
-    #     if frame_id > self.input.frame_id:
-    #         if not self.input.update():
-    #             self.logger.error('Input image {:d} could not be read'.format(frame_id))
-    #             return False
-    #         self.all_frames[frame_id] = np.copy(self.input.curr_frame)
-    #     return self.all_frames[frame_id]
 
     def _get_train_trajectories(self, annotations, detections, n_frames, frame_size):
         """

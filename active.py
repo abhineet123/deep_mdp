@@ -13,7 +13,7 @@ from models.model_base import ModelBase
 from models.dummy import Oracle
 
 from utilities import MDPStates, CustomLogger, AnnotationStatus, annotate_and_show, \
-    draw_box, draw_boxes, get_patch,  get_shifted_boxes, resize_ar
+    draw_box, draw_boxes, get_patch, get_shifted_boxes, resize_ar
 
 
 class Active(PolicyBase):
@@ -76,8 +76,6 @@ class Active(PolicyBase):
             self.img_patches = Active.Params.ImagePatches()
 
             self._pretrain_path = ''
-
-
 
         @property
         def pretrain_path(self): return self._pretrain_path
@@ -305,7 +303,8 @@ class Active(PolicyBase):
 
         """all detections are false positives by default"""
         labels = np.full((detections.count, 1), -1)
-        """true positive detections"""
+        """true positive detections - does not seem to account for highly-overlapping duplicate 
+        detections that should be false positives """
         tp_bool = detections.max_cross_iou > self._params.overlap_pos
         labels[np.flatnonzero(tp_bool)] = 1
         """unknown whether true positive or false positive detection"""
@@ -313,6 +312,7 @@ class Active(PolicyBase):
                                                     np.logical_not(tp_bool)))
         labels[unknown_ids] = 0
 
+        """don't train on unknown detections"""
         valid_idx = np.flatnonzero(labels != 0)
         n_valid_idx = valid_idx.size
         if n_valid_idx == 0:
@@ -561,5 +561,3 @@ class Active(PolicyBase):
             annotate_and_show('active add_synthetic_samples', [disp_img, vis_img], n_modules=0)
 
         self._add_test_samples(_features, sampled_labels, None, is_synthetic=1)
-
-

@@ -6,7 +6,6 @@ import torch
 import gc
 
 import paramparse
-from paramparse import MultiCFG, MultiPath
 
 from data import Data
 from trainer import Trainer
@@ -23,207 +22,15 @@ from models.mlp import MLP
 from models.cnn import CNN
 from models.dummy import Oracle, Positive, Negative, Random
 from run import Train, Test
+from params import Params
+from ibt_params import IBTParams
 
 from utilities import CustomLogger, linux_path, SaveModes
+
+
 # from Server import ServerParams
 
-from utilities import parse_seq_IDs, x11_available, disable_vis, set_recursive, BaseParams
-
-
-class MainParams(BaseParams):
-    """
-    root parameters - has to be defined here instead of main or separate module to prevent circular dependency between
-     IBT and that module since Params needs IBT.Params and IBT needs Params for intellisense
-
-    :type cfg: str
-    :type data: Data.Params
-    :type train: Train.Params
-    :type test: Test.Params
-    :type tester: Tester.Params
-    :type trainer: Trainer.Params
-    :type ibt: IBT.Params
-
-
-    :ivar mode: 0: standard training and testing; 1: IBT
-
-    :ivar vis: set to 0 to disable visualization globally
-
-    :ivar train: training settings
-
-    :ivar test: testing settings
-
-    :ivar cfg: optional ASCII text file from where parameter values can be
-    read;command line parameter values will override the values in this file
-
-    :ivar log_dir: directory where log files are created; leaving it empty
-    disables logging to file
-
-    :ivar data: parameters for Data module
-
-    :ivar tester: Tester parameters
-
-    :ivar trainer: Trainer parameters
-
-    :ivar ibt: Iterative Batch Training parameters
-
-    """
-
-    def __init__(self):
-
-        self.gpu = ""
-        self.vis = 1
-        self.mode = 0
-
-        self.data = Data.Params()
-        self.train = Train.Params()
-        self.test = Test.Params()
-
-        self.ibt = IBT.Params()
-
-        self.cfg_root = 'cfg'
-        self.cfg_ext = 'cfg'
-        self.cfg = ()
-
-        self.log_dir = ''
-
-        self.tester = Tester.Params()
-        self.trainer = Trainer.Params()
-        # self.server = ServerParams()
-
-    def process(self, args_in=None):
-        # self.train.process()
-        # self.test.process()
-        self.train.seq = parse_seq_IDs(self.train.seq, self.train.sample)
-        self.test.seq = parse_seq_IDs(self.test.seq, self.test.sample)
-
-        self.test.synchronize(self.train, force=False)
-
-        if self.tee_log:
-            set_recursive(self, 'tee_log', self.tee_log, check_existence=1)
-
-        if self.vis != 2:
-            """disable vis if GUI not available"""
-            from sys import platform
-            if not self.vis or (platform in ("linux", "linux2") and not x11_available()):
-                disable_vis(self, args_in)
-
-                import matplotlib as mpl
-
-                mpl.use('Agg')
-
-            # print('train_seq_ids: ', self.train_seq_ids)
-            # print('test_seq_ids: ', self.test_seq_ids)
-
-
 class IBT:
-    class Params(BaseParams):
-        """
-        Iterative Batch Train Parameters
-
-        :type cfgs: MultiCFG
-        :type test_cfgs: MultiCFG
-        :type async_dir: MultiPath
-        :type states: MultiPath
-
-
-        :ivar async_dir: 'Directory for saving the asynchronous training data',
-        :ivar test_cfgs: 'cfg files and sections from which to read iteration specific configuration data '
-                     'for testing and evaluation phases; '
-                     'cfg files for different iterations must be separated by double colons followed by the '
-                     'iteration id and a single colon; cfg files for any iteration can be provided in multiple '
-                     'non contiguous units in which case they would be concatenated; '
-                     'commas separate different cfg files for the same iteration and '
-                     'single colons separate different sections for the same cfg file as usual; '
-                     'configuration in the last provided iteration would be used for all subsequent '
-                     'iterations as well unless an underscore (_) is used to revert to the global '
-                     '(non iteration-specific) parameters; ',
-        :ivar cfgs: 'same as test_cfgs except for the data generation and training phases '
-                'which are specific to each '
-                'state so that the iteration ID here includes both the iteration itself as well as the state; '
-                'e.g. with 2 states:  iter 0, state 1  -> id = 01; iter 2, state 0 -> id = 20',
-        :ivar start_iter: 'Iteration at which the start the training process',
-        :ivar load: '0: Train from scratch '
-                '1: load previously saved weights from the last iteration and continue training;'
-                'Only applies if iter_id>0',
-        :ivar states: 'states to train: one or more of [active, tracked, lost]',
-        :ivar load_weights: '0: Train from scratch; '
-                        '1: load previously saved weights and test; '
-                        '2: load previously saved weights and continue training; ',
-        :ivar min_samples: 'minimum number of samples generated in data_from_tester '
-                       'for the policy to be considered trainable',
-        :ivar accumulative: 'decides if training data from all previous iterations is added to that from '
-                        'the current iteration for training',
-        :ivar start_phase: 'Phase at which the start the training process in the iteration specified by start_id:'
-                       '0: data generation / evaluation of previous iter'
-                       '1: batch training '
-                       '2: testing / evaluation of policy classifier '
-                       '3: testing / evaluation of tracker ',
-        :ivar ips: 'triplet of integers specifying start iter,phase,state (optionally separated by commas)',
-        :ivar start: 'single string specifying both start_id and start_phase by simple concatenation;'
-                 'e.g  start=12 means start_id=1 and start_phase=2; '
-                 'overrides both if provided',
-
-        :ivar load_prev: continue training in the start iteration by loading weights from the same iteration
-        saved in a previous run instead of loading them from previous iteration (if start iter > 0)
-
-        """
-
-        def __init__(self):
-            self.ips = ''
-            self.start = ''
-            self.start_iter = 0
-            self.start_phase = 0
-            self.start_state = 0
-            self.start_seq = -1
-            self.data_from_tester = 0
-            self.load = 0
-            self.states = []
-            self.skip_states = []
-            self.n_iters = 5
-            self.min_samples = 100
-            self.allow_too_few_samples = 0
-            self.accumulative = 0
-            self.load_weights = 2
-            self.save_suffix = ''
-            self.load_prev = 0
-            self.phases = ()
-            self.test_iters = ()
-            self.async_dir = MultiPath()
-            self.cfgs = MultiCFG()
-            self.test_cfgs = MultiCFG()
-
-        def process(self):
-            # self.async_dir = '_'.join(self.async_dir)
-            if self.ips:
-                self.start = self.ips
-
-            if self.start:
-                if ',' in self.start:
-                    start = list(map(int, self.start.split(',')))
-                else:
-                    start = list(map(int, [*self.start]))
-
-                if len(start) > 4:
-                    self.start_iter, self.start_phase, self.start_state = start[:3]
-                    self.start_seq = int(''.join(map(str, start[3:])))
-                elif len(start) == 4:
-                    self.start_iter, self.start_phase, self.start_state, self.start_seq = start
-                elif len(start) == 3:
-                    self.start_iter, self.start_phase, self.start_state = start
-                elif len(start) == 2:
-                    self.start_iter, self.start_phase = start
-                else:
-                    raise AssertionError(f'Invalid start IDs: {self.start}')
-
-        def get_cfgs(self):
-            n_states = len(self.states)
-
-            valid_cfgs = [f'{iter_id}{state_id}' for iter_id in range(self.n_iters) for state_id in range(n_states)]
-            return MultiCFG.to_dict(self.cfgs, valid_cfgs)
-
-        def get_test_cfgs(self):
-            valid_test_cfgs = list(map(str, range(self.n_iters)))
-            return MultiCFG.to_dict(self.test_cfgs, valid_test_cfgs)
 
     class Phases:
         data_generation, training, evaluation, testing = range(4)
@@ -1026,7 +833,7 @@ class IBT:
         """
 
         :param int iter_id:
-        :param IBT.Params ibt:
+        :param IBTParams ibt:
         :param int state_id:
         :param state:
         :return:
@@ -1083,7 +890,7 @@ class IBT:
         """
 
         :param int iter_id:
-        :param IBT.Params ibt:
+        :param IBTParams ibt:
         :param int test_mode:
         :return:
         """
@@ -1099,7 +906,7 @@ class IBT:
         """
 
         :param int iter_id:
-        :param IBT.Params ibt:
+        :param IBTParams ibt:
         :param int test_mode:
         :return:
         """
@@ -1141,13 +948,13 @@ class IBT:
     def run(params, logger, args_in):
         """
 
-        :param MainParams params:
+        :param Params params:
         :param logger:
         :param args_in:
         :return:
         """
 
-        ibt = params.ibt  # type: IBT.Params
+        ibt = params.ibt  # type: IBTParams
         ibt.process()
 
         assert ibt.states, 'ibt state must be provided'
@@ -1196,8 +1003,8 @@ class IBT:
         load_dir = None
         results_dir = None
         default_test_params = None
-        iter_params = paramparse.copy_recursive(default_params)  # type: MainParams
-        test_params = paramparse.copy_recursive(default_params)  # type: MainParams
+        iter_params = paramparse.copy_recursive(default_params)  # type: Params
+        test_params = paramparse.copy_recursive(default_params)  # type: Params
 
         n_ibt_states = len(ibt_states)
         db_path = dict(zip(ibt_states, ('',) * n_ibt_states))
@@ -1326,7 +1133,7 @@ class IBT:
                     pass
                 else:
                     if cfg == '_':
-                        iter_params = paramparse.copy_recursive(default_params)  # type: MainParams
+                        iter_params = paramparse.copy_recursive(default_params)  # type: Params
                     elif cfg:
                         paramparse.process(iter_params, cfg=cfg, cmd=False)
                         iter_params.process()
