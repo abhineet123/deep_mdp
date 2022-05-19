@@ -3073,9 +3073,24 @@ def most_recently_modified_dir(prev_results_dir, excluded=()):
     return load_dir
 
 
-def get_neighborhood(_score_map, cx, cy, r, _score_sz, type, thickness=1):
-    if type == 0:
+def get_neighborhood(_score_map, cx, cy, r, _score_sz, max_type, thickness=1):
+    """
+    Return pixel values in a single concentric neighbourhood of given radius around a given point
 
+    :param _score_map:
+    :param cx: x coordinate of center
+    :param cy: y coordinate of center
+    :param r: radius of  the concentric region around the center
+    :param _score_sz:
+    :param max_type: Neighbourhood type:
+                    0: square region around the center (fastest)
+                    1: circular region around the center
+                    2: alternative circular region around the center using binary masking with opencv
+    :param thickness:
+    :return:
+    """
+    if max_type == 0:
+        """square region around the center"""
         # _max = -np.inf
         neighborhood = []
 
@@ -3122,7 +3137,8 @@ def get_neighborhood(_score_map, cx, cy, r, _score_sz, type, thickness=1):
                 neighborhood += list(_score_map[y2, x1:x2 + 1].flat)
 
         return np.asarray(neighborhood)
-    elif type == 1:
+    elif max_type == 1:
+        """circular region around the center"""
         x = np.arange(0, _score_sz)
         y = np.arange(0, _score_sz)
         mask = (x[np.newaxis, :] - cx) ** 2 + (y[:, np.newaxis] - cy) ** 2 >= r ** 2
@@ -3131,7 +3147,8 @@ def get_neighborhood(_score_map, cx, cy, r, _score_sz, type, thickness=1):
         neighborhood = _score_map[mask].flatten()
         return np.asarray(neighborhood)
         # return _max
-    elif type == 2:
+    elif max_type == 2:
+        """alternative circular region around the center using binary masking with opencv"""
         mask = np.zeros_like(_score_map)
         cv2.circle(mask, (cx, cy), int(r), color=1, thickness=thickness)
         # _max = np.amax(_score_map[mask.astype(np.bool)])
@@ -3139,7 +3156,7 @@ def get_neighborhood(_score_map, cx, cy, r, _score_sz, type, thickness=1):
 
         return neighborhood
     else:
-        raise AssertionError('Invalid neighborhood type: {}'.format(type))
+        raise AssertionError('Invalid neighborhood type: {}'.format(max_type))
 
     # if _max > 0:
     #     _conf = 1 - math.exp(-1.0 / _max)

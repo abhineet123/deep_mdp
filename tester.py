@@ -529,16 +529,16 @@ class Tester:
             if self._params.verbose:
                 print('\n\nframe {:d}, targets {:d}'.format(frame_id + 1, self.n_live))
 
-            # get current frame
+            """get current frame"""
             if self.input.params.batch_mode:
                 curr_frame = self.input.all_frames[frame_id]
             else:
-                # first frame was read during pipeline initialization
+                """first frame was read during pipeline initialization"""
                 if frame_id > 0 and not self.input.update():
                     raise IOError('Input image {:d} could not be read'.format(frame_id))
                 curr_frame = self.input.curr_frame
 
-            # get current detections
+            """get current detections"""
             det_ids = self.input.detections.idx[frame_id]
             if det_ids is not None:
                 curr_det_data = self.input.detections.data[det_ids, :]
@@ -551,7 +551,7 @@ class Tester:
 
             track_start_t = time.time()
 
-            # process current frame
+            """process current frame"""
             if not self.update(frame_id, curr_frame, curr_det_data, n_detections,
                                annotations=annotations, msg=status_msg):
                 return False
@@ -566,6 +566,8 @@ class Tester:
             except ZeroDivisionError:
                 fps = np.inf
 
+
+            """collect diagnostics information"""
             self.lost_seq_ids = []
             self.lost_ids = []
             self.lost_targets = []
@@ -597,12 +599,12 @@ class Tester:
                         n_gt_objects = curr_ann_idx.size
                     tb_writer.add_scalar(f'{self.input.seq_name}/GT', n_gt_objects, frame_id)
 
+            """apply heuristic criteria for removing lost targets"""
             if self._params.max_lost_ratio > 0:
                 max_lost = math.ceil(self._params.max_lost_ratio * self._n_tracked)
 
+
                 if self._n_lost > max_lost > 0:
-                    """heuristic criteria for removing lost targets
-                    """
                     lost_probs = [np.mean(t.lost.assoc_probabilities) if t.lost.assoc_probabilities else 1
                                   for t in self.lost_targets]
                     local_lost_ratios = [-t.history.lost_ratio for t in self.lost_targets]
@@ -643,7 +645,6 @@ class Tester:
                 assert self.n_live <= self._params.max_targets, \
                     f"\n{status_msg}\nn_active_targets: {self.n_live} " \
                         f"exceeds the max allowed: {self._params.max_targets}"
-
             # if self.vis:
             #     print()
             #     print(f'lost_targets: {pformat(self.lost_ids)}')
@@ -681,6 +682,15 @@ class Tester:
         return True
 
     def _track(self, frame_id, frame, det_data, n_det):
+        """
+        called for each frame
+
+        :type frame: np.ndarray
+        :type frame_id: int
+        :type det_data: np.ndarray
+        :type n_det: int
+        """
+
         if self._params.sort_targets:
             self.target_sort_idx = self._sort_targets()
         else:
@@ -803,9 +813,10 @@ class Tester:
                                              associate=False, assoc_with_ann=False)
                     self.targets[_id].lost.get_distances(dist[:, i])
                 assignments, cost = pyHungarian.get(dist)
+                """associate using externally provided detection IDs"""
                 for i in range(assignments.size):
                     _id = lost_idx[i]
-                    # pyHungarian returns 1-based assignment indices
+                    """pyHungarian returns 1-based assignment indices"""
                     self.targets[_id].associate(assoc_det_id=int(assignments[i] - 1))
                     self._update_target_variables(_id)
 
@@ -855,7 +866,7 @@ class Tester:
             self._resolve_target_conflicts(det_data, n_det)
 
         if result is not None:
-            """for the server"""
+            """for the tracking server"""
             for target in self.targets:
                 if target.state != MDPStates.tracked:
                     continue
@@ -868,7 +879,7 @@ class Tester:
         target_data_raw = np.empty((self.n_live, 11), dtype=np.float64)
         for i in range(self.n_live):
             target_data_raw[i, :] = self.targets[i].get_data(True)
-            """1based frame IDs"""
+            """1-based frame IDs"""
             target_data_raw[i, 0] += 1
         if self._results_raw is None:
             self._results_raw = target_data_raw
@@ -1160,7 +1171,7 @@ class Tester:
     def _resolve_target_conflicts(self, curr_det_data, n_detections):
         """
         Find all pairs of tracked targets with overlap > 0.7 and remove the one with shorter tracked streak assuming
-        that they are both duplicate targets for the same object and the one that has been Tracked  is more reliable
+        that they are both duplicate targets for the same object and the one that has been Tracked longer is more reliable
         If both targets have identical tracked streaks, then remove the one with smaller overlap with the maximally
         overlapping detection
 

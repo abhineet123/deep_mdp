@@ -26,7 +26,7 @@ python3 main.py cfg=_mnistmot_:s:0_9:d:100_100,_test_:vis:ann @test evaluate=0 l
 
 <a id="ctc_"></a>
 # ctc       
-python3 main.py cfg=_ctc_:s:0_19:d:100_100,_test_:vis:ann:2 @test evaluate=0 load=1 @tester use_annotations=0
+python3 main.py cfg=_ctc_:s:0_19:d:100_100,_test_:vis:ann:s-5:traj0:id0 @test evaluate=0 load=1 @tester use_annotations=0
 
 <a id="ctm_c_"></a>
 # ctmc       

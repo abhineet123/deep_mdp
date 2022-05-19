@@ -1,5 +1,4 @@
 import os
-import copy
 import json
 
 import torch
@@ -31,7 +30,6 @@ from utilities import CustomLogger, linux_path, SaveModes
 # from Server import ServerParams
 
 class IBT:
-
     class Phases:
         data_generation, training, evaluation, testing = range(4)
 
@@ -71,13 +69,13 @@ class IBT:
         """
         if state == 'active':
             state_params = target_params.active  # type: Active.Params
-            async_mode = 3
+            async_mode = Trainer.Modes.active_async
         elif state == 'tracked':
             state_params = target_params.tracked  # type: Tracked.Params
-            async_mode = 2
+            async_mode = Trainer.Modes.tracked_async
         elif state == 'lost':
             state_params = target_params.lost  # type: Lost.Params
-            async_mode = 1
+            async_mode = Trainer.Modes.lost_async
         else:
             raise AssertionError('Invalid state: {}'.format(state))
 
@@ -290,6 +288,7 @@ class IBT:
         _train_params.load_dir = load_dir
 
         for state in states:
+            """set parameters for loading latest trained models"""
             _, model_params, _ = IBT.get_state_params(target_params, state)
             if model_params is None:
                 logger.warning(f'none model specified for state: {state} which differs from training')
@@ -320,6 +319,7 @@ class IBT:
             _train_params.load = Train.Modes.no_train
 
         if not _test_params.load:
+            """load latest trained models"""
             _trained_target = Train.run(test_data, _trainer_params, _train_params, _logger, log_dir, args_in)
             if not _trained_target:
                 return False
@@ -491,8 +491,8 @@ class IBT:
 
         if iter_id == 0:
             """Asynchronous data generation on all samples whether or not they cause model failure"""
-
             state_params.always_train = 1
+
             if state_id == 0:
                 """first state in first iter --> train_from_scratch
                 """
@@ -626,6 +626,7 @@ class IBT:
 
         if 'active' in states:
             if not status['active']:
+                """running without any trained model so use relative oracle"""
                 target_params.active.model = "oracle"
                 target_params.active.oracle.type = Oracle.Types.relative
             #     target_params.active.save_mode = SaveModes.all
@@ -644,6 +645,7 @@ class IBT:
             # else:
             #     target_params.lost.save_mode = SaveModes.error
 
+            """number of synthetic samples for each real sample"""
             target_params.lost.syn_samples = 2
             target_params.lost.save_mode = SaveModes.all
             # target_params.lost.save_mode = SaveModes.none
@@ -670,6 +672,8 @@ class IBT:
             else:
                 # _tester_params.mode = TestModes.save_error_samples
 
+                """still need to run the trainer to get the target object with loaded weights 
+                to be passed to the tester for data generation"""
                 _train_params.load = Train.Modes.test_only
                 _train_params.load_dir = load_dir
 
@@ -711,7 +715,7 @@ class IBT:
         status['save'] = 1
 
         status_change = 0
-        invalid_exists = 0
+        untrained_exists = 0
 
         if 'active' in states:
             n_samples = target.active.samples.count
@@ -722,7 +726,7 @@ class IBT:
             else:
                 msg = f'found too few samples: {n_samples} / {min_samples} for active '
                 if not status['active']:
-                    invalid_exists = 1
+                    untrained_exists = 1
                 if n_samples < min_samples:
                     if not allow_too_few_samples:
                         raise AssertionError(msg)
@@ -738,7 +742,7 @@ class IBT:
             else:
                 msg = f'found too few samples: {n_samples} / {min_samples} for lost '
                 if not status['lost']:
-                    invalid_exists = 1
+                    untrained_exists = 1
                 if n_samples < min_samples:
                     if not allow_too_few_samples:
                         raise AssertionError(msg)
@@ -753,14 +757,14 @@ class IBT:
             else:
                 msg = f'found too few samples: {n_samples} / {min_samples} for tracked '
                 if not status['tracked']:
-                    invalid_exists = 1
+                    untrained_exists = 1
                 if n_samples < min_samples:
                     if not allow_too_few_samples:
                         raise AssertionError(msg)
                     _logger.warning(msg)
 
-        if not status_change and invalid_exists:
-            raise AssertionError(f'no change in status for any states while one or more invalid states exist')
+        if not status_change and untrained_exists:
+            raise AssertionError(f'no change in status for any states while one or more untrained policies exist')
 
         status['save_dir'] = target.save_dir
 
@@ -1002,9 +1006,9 @@ class IBT:
 
         load_dir = None
         results_dir = None
-        default_test_params = None
+        default_testing_params = None
         iter_params = paramparse.copy_recursive(default_params)  # type: Params
-        test_params = paramparse.copy_recursive(default_params)  # type: Params
+        curr_testing_params = paramparse.copy_recursive(default_params)  # type: Params
 
         n_ibt_states = len(ibt_states)
         db_path = dict(zip(ibt_states, ('',) * n_ibt_states))
@@ -1028,17 +1032,17 @@ class IBT:
                     test_cfg = ''
                 else:
                     if test_cfg and test_cfg != '_':
-                        default_test_params = paramparse.copy_recursive(iter_params)
-                        paramparse.process(default_test_params, cfg=test_cfg, cmd=False)
-                        default_test_params.process()
+                        default_testing_params = paramparse.copy_recursive(iter_params)
+                        paramparse.process(default_testing_params, cfg=test_cfg, cmd=False)
+                        default_testing_params.process()
 
-                if test_cfg == '_' or default_test_params is None:
-                    test_params = iter_params
+                if test_cfg == '_' or default_testing_params is None:
+                    curr_testing_params = iter_params
                 else:
-                    test_params = default_test_params
+                    curr_testing_params = default_testing_params
 
             if iter_id > 0 and iter_id > ibt.start_iter and iter_id - 1 in ibt.test_iters:
-                test_mode = test_params.test.mode
+                test_mode = curr_testing_params.test.mode
 
                 if IBT._skip_eval(iter_id, ibt, test_mode):
                     print(f'skipping iteration {iter_id - 1} policy evaluation phase')
@@ -1046,10 +1050,10 @@ class IBT:
                     print(f'\nrunning iteration {iter_id - 1} policy evaluation phase\n')
                     if not IBT.eval(iter_id, ibt_states, load_dir, results_dir,
                                     results_dir_root,
-                                    test_params.ibt.accumulative,
-                                    test_params.train, test_params.trainer,
-                                    test_params.data,
-                                    test_params.log_dir,
+                                    curr_testing_params.ibt.accumulative,
+                                    curr_testing_params.train, curr_testing_params.trainer,
+                                    curr_testing_params.data,
+                                    curr_testing_params.log_dir,
                                     logger, args_in):
                         raise AssertionError('policy evaluation phase failed')
 
@@ -1058,18 +1062,18 @@ class IBT:
                 else:
                     logger.warning(f'\nrunning iteration {iter_id - 1} testing phase\n')
                     success = IBT.test(iter_id, ibt_states, load_dir,
-                                       test_params.ibt.accumulative,
-                                       test_params.train, test_params.trainer,
-                                       test_params.test, test_params.tester,
-                                       test_params.data,
+                                       curr_testing_params.ibt.accumulative,
+                                       curr_testing_params.train, curr_testing_params.trainer,
+                                       curr_testing_params.test, curr_testing_params.tester,
+                                       curr_testing_params.data,
                                        results_dir_root,
-                                       test_params.log_dir, logger,
+                                       curr_testing_params.log_dir, logger,
                                        args_in)
-                    if test_params.test.replace.target is not None:
-                        params.test.replace.target = test_params.test.replace.target
+                    if curr_testing_params.test.replace.target is not None:
+                        params.test.replace.target = curr_testing_params.test.replace.target
                         return True
 
-                    if not test_params.test.load and not success:
+                    if not curr_testing_params.test.load and not success:
                         raise AssertionError('testing phase failed')
 
             if iter_id >= ibt.n_iters:
@@ -1138,6 +1142,9 @@ class IBT:
                         paramparse.process(iter_params, cfg=cfg, cmd=False)
                         iter_params.process()
 
+                """
+                Data Generation from Trainer Phase
+                """
                 if not ibt.data_from_tester:
                     if iter_id == 0:
                         """Asynchronous data generation"""
@@ -1149,9 +1156,6 @@ class IBT:
                             _save_dir = '{}_acc0'.format(_save_dir)
                         results_dir = linux_path(results_dir_root, _save_dir)
 
-                    """
-                    Data Generation from Trainer Phase
-                    """
                     ibt_key = '{}:{}:data'.format(iter_id, ibt_state)
                     phase = 'trainer data generation'
                     if IBT._skip_data_from_trainer(iter_id, ibt, ibt_state_id):
@@ -1168,8 +1172,7 @@ class IBT:
                                 'save_dir': __save_dir
                             }
                     else:
-
-                        print(f'\nrunning iteration {iter_id} {ibt_state} trainer {phase} phase\n')
+                        print(f'\nrunning iteration {iter_id} {ibt_state} {phase} phase\n')
                         _status = IBT.data_from_trainer(
                             _status,
                             iter_id, ibt_states, ibt_state_id, load_dir, results_dir,

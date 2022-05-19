@@ -589,7 +589,7 @@ class Target:
             # reward = 1
             predicted_location = self.history.predict(self.frame_id, self._frame)
 
-            """have to psdd frame specific data due to the asynchronous nature of training 
+            """have to pass frame specific data due to the asynchronous nature of training 
             wherein the last policy update might not be in this frame"""
             if state_to_train == MDPStates.tracked:
                 self.tracked.train_async(self._frame, self.frame_id, self._detections, predicted_location)
@@ -597,9 +597,12 @@ class Target:
                 prev_location = self.history.locations[-1, :]
                 self.lost.train_async(self._frame, self.frame_id, self._detections, predicted_location, prev_location)
             else:
-                raise AssertionError('Invalid state_to_train: {}'.format(state_to_train))
+                raise AssertionError('Invalid state for asynchronous training: {}'.format(state_to_train))
             return is_end, reward
         else:
+            """
+            old-style incremental training 
+            """
             if state_to_train == MDPStates.tracked:
                 reward = self.tracked.train()
             elif state_to_train == MDPStates.lost:

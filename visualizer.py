@@ -127,6 +127,7 @@ class Visualizer:
             self.pause_after_frame = 0
 
             self.show_trajectory = 1
+            self.show_id = 1
             self.show_invalid = 0
             self.box_thickness = 2
             self.traj_thickness = 2
@@ -461,8 +462,12 @@ class Visualizer:
                     traj_data[target_id].append(obj_center)
                     draw_trajectory(tracked_frame, traj_data[target_id], color=color,
                                     thickness=traj_thickness, is_dotted=is_dotted)
-                draw_box(tracked_frame, res_data[res_id, 2:6], color=color, _id=target_id,
-                         thickness=box_thickness, is_dotted=is_dotted)
+                draw_box(tracked_frame, res_data[res_id, 2:6],
+                         color=color,
+                         _id=target_id if self._params.show_id else None,
+                         thickness=box_thickness,
+                         is_dotted=is_dotted)
+
             if gates is not None:
                 for _id, gate in gates.viewitems():
                     p1 = (int(gate.x0), int(gate.y0))
@@ -555,7 +560,9 @@ class Visualizer:
                     draw_trajectory(ann_frame, traj_data[target_id], color=self._params.ann_cols[col_id],
                                     thickness=self._params.traj_thickness, is_dotted=is_dotted)
                 draw_box(ann_frame, ann_data[ann_id, 2:6], color=self._params.ann_cols[col_id],
-                         _id=target_id, thickness=self._params.box_thickness, is_dotted=is_dotted)
+                         _id=target_id if self._params.show_id else None,
+                         thickness=self._params.box_thickness,
+                         is_dotted=is_dotted)
 
             out_images[ObjTypes.annotation] = ann_frame
 
@@ -581,8 +588,10 @@ class Visualizer:
         if failed_targets:
             failed_target_frame = np.copy(curr_frame_disp)
             for failed_target in failed_targets:
-                draw_box(failed_target_frame, failed_target, color='black',
-                         _id=0, thickness=self._params.box_thickness)
+                draw_box(failed_target_frame, failed_target,
+                         color='black',
+                         _id=0 if self._params.show_id else None,
+                         thickness=self._params.box_thickness)
             if self._params.disp_size:
                 failed_target_frame = resize_ar(failed_target_frame, *self._params.disp_size)
             elif self._params.resize_factor != 1:
@@ -595,9 +604,12 @@ class Visualizer:
 
         key = cv2.waitKey(1 - self._pause_after_frame) % 256
         if key == 27:
+            return False
+        elif key == ord('q'):
             sys.exit()
         elif key == 32:
             self._pause_after_frame = 1 - self._pause_after_frame
+
         return True
 
     def close(self):

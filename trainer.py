@@ -30,13 +30,15 @@ class Trainer:
 
 
         :ivar mode: '0: run tracker as usual and let the target decide how to train, '
-                '1: train only lost state policy,'
-                '2: train only tracked state policy',
+                    '1: train only lost state policy,'
+                    '2: train only tracked state policy',
+                    '3: train only active state policy',
         :ivar active_load_path: 'optional path to load a pre-trained active model from and skip training it',
         :ivar overlap_occ: 'IOA threshold for deciding if an annotation is to be considered as occluded by another',
-        :ivar ignore_too_difficult: 'dominate training without raising an error if all the trajectories are found to
-        be too difficult to train on; disabling it would cause an assertion error to be raised indicating complete and
-        utter failure of training and the corresponding garbage trained model due to the method that it is'
+        :ivar ignore_too_difficult: 'Continue training without raising an error if all the trajectories are found to
+            be too difficult to train on;
+            disabling it would cause an assertion error to be raised indicating complete and
+            utter failure of training and the corresponding garbage trained model due to the method that it is'
         :ivar max_iter: 'Maximum number of iterations allowed on any given sequence before training on that sequence is'
                     ' considered to be complete - an iteration is considered to have happened when one instance of'
                     'training over a particular trajectory has been completed',
@@ -359,7 +361,7 @@ class Trainer:
         """
         self.target.active.train(self._frames, detections)
 
-        if self._params.mode == 3:
+        if self._params.mode == Trainer.Modes.active_async:
             """
             async training of active policy
             """

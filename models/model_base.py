@@ -31,6 +31,9 @@ class ModelBase:
         :ivar min_samples: Minimum number of training samples to collect before starting training;
                        only for online incremental training mode
 
+        :ivar enable_non_batch: enable calling the train() function for standard non-batch training;
+        Calling this function with this parameter disabled  raises an error
+
         :ivar parallel_load: Load saved samples from all sequences in parallel; seems to be buggy
 
         :ivar mem_mapped_load: Load saved samples as memory mapped arrays to avoid running out of memory when

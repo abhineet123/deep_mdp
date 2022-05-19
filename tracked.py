@@ -808,7 +808,6 @@ class Tracked(PolicyBase):
                                      iteration=None, stats=self._cmb_stats, batch_size=1,
                                      tb_vis_path=None, epoch=None, title='tracked')
 
-
     def train_async(self, frame, frame_id, detections, predicted_location):
         """
         asynchronous training
@@ -837,7 +836,8 @@ class Tracked(PolicyBase):
                 frame_id, self._target_id))
             return
 
-        if annotations.data[self._curr_ann_idx[0], 11]:
+        is_occluded = annotations.data[self._curr_ann_idx[0], 11]
+        if is_occluded:
             """only training on clearly visible annotations for now
             """
             if self._params.verbose:

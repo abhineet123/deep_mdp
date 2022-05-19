@@ -197,6 +197,8 @@ class NeuralNet(ModelBase):
 
     def train(self, labels, features):
         """
+        old-style incremental training now only used for collecting samples for later batch training
+
         :type labels: np.ndarray
         :type features: np.ndarray
         :rtype: None

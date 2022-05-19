@@ -14,6 +14,7 @@ from trackers.siamX.siamx import SiamX
 from trackers.tracker_base import TrackerBase
 from utilities import TrackingStatus, nms, get_neighborhood, draw_box, annotate_and_show, CustomLogger
 
+
 class Siamese(TrackerBase):
     """
     :type _params: Siamese.Params
@@ -52,8 +53,14 @@ class Siamese(TrackerBase):
                     '2: median, '
                     '3: min, '
         ,
+        :ivar max_type: Neighbourhood type:
+                    0: square region around the center (fastest)
+                    1: circular region around the center
+                    2: alternative circular region around the center using binary masking with opencv
+
         :ivar nms_dist_ratio: 'fraction of the maximum dimension of the score map used as the distance threshold '
                   'while performing non-maximum suppression for feature and status extraction',
+
         :ivar normalize_scores: 'normalize score map so that the maximum becomes 1',
         :ivar vis: 'Enable diagnostic visualization',
         :ivar siam_fc: 'SiamFCParams',
@@ -68,6 +75,9 @@ class Siamese(TrackerBase):
             self.variant = 'siam_fc'
 
             self.stacked = 0
+
+            """redefined here for intellisense"""
+            self.feature_type = 0
 
             self.feature_scale = 0.
             self.n_features = 10
@@ -259,7 +269,7 @@ class Siamese(TrackerBase):
 
         self.frame_ids = []
         self.frame_id = None
-        self.track_res_by_fram = OrderedDict()
+        self.track_res_by_frame = OrderedDict()
 
         self._update = self._initialize
 
@@ -302,9 +312,12 @@ class Siamese(TrackerBase):
         if frame_id <= self.frame_id:
             """frame already tracked"""
             try:
-                track_res = self.track_res_by_frame(frame_id)
+                track_res = self.track_res_by_frame[frame_id]
             except KeyError:
-                raise AssertionError(f'Invalid frame {frame_id} with latest frame_id {self.frame_id} and max_frames_to_store {self._params.max_frames_to_store}')
+                raise AssertionError(
+                    f'Invalid frame {frame_id}'
+                    f'with latest frame_id {self.frame_id}'
+                    f'and max_frames_to_store {self._params.max_frames_to_store}')
             return track_res
 
         assert frame_id == self.frame_id + 1, f"missing frame between frame_ids {self.frame_id} and {frame_id}"
@@ -435,6 +448,7 @@ class Siamese(TrackerBase):
             _features[:] = score_.flatten()
             if not self._heuristics:
                 return _features, _status, _conf
+            """else compute _conf with heuristics"""
         elif self._params.feature_type == 1:
             """maximum in each row and column
             """
@@ -444,6 +458,7 @@ class Siamese(TrackerBase):
             ), axis=1)
             if not self._heuristics:
                 return _features, _status, _conf
+            """else compute _conf with heuristics"""
 
         if self._params.nms_method == 0:
             """

@@ -10,8 +10,8 @@ import os
 import sys
 import time
 
-# import paramparse
-from _paramparse_ import paramparse
+import paramparse
+# from _paramparse_ import paramparse
 
 from utilities import CustomLogger, SIIF, profile, id_token_to_cmd_args
 

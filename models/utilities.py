@@ -58,7 +58,6 @@ class ImbalancedDatasetSampler(Sampler):
         return self.num_samples
 
 
-
 class NLLLossOHEM(nn.NLLLoss):
     """ Online hard example mining.
     Needs input from nn.LogSotmax() """
